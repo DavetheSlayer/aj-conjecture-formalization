@@ -21,8 +21,8 @@ Your solution is okay!>
 | | |
 |---|---|
 | Repository | commit `<full hash>` (`<subject line>`); working tree <clean | changes: ...>; tree of `lean/`: `<git rev-parse HEAD:lean>` |
-| Configuration | `lean/comparator.json` as committed (sha256 `<...>`): challenge `Challenge`, solution `Solution`, <49> theorems, no definition holes, permitted axioms `propext`, `Quot.sound`, `Classical.choice`, external kernel `nanoda` (`nanoda_bin`) |
-| Theorems | <all 49 names of `theorem_names` | the subset ...> |
+| Configuration | `lean/comparator.json` as committed (sha256 `<...>`): challenge `Challenge`, solution `Solution`, <60> theorems, no definition holes, permitted axioms `propext`, `Quot.sound`, `Classical.choice`, external kernel `nanoda` (`nanoda_bin`) |
+| Theorems | <all 60 names of `theorem_names` | the subset ...> |
 | Toolchain | `<lean-toolchain>` (Lean commit `<...>`), Lake `<...>`, elan `<...>`, `nanoda_bin` `<version>` |
 | Mathlib | `<rev>`, from `lake exe cache get` (<n> files) |
 | Sandbox | bubblewrap `<version>`, <unprivileged user namespaces | setuid> |
@@ -32,7 +32,7 @@ Your solution is okay!>
 
 ## Comparator output
 
-<Excerpts of the log: the build of the challenge (number of jobs, the 49 `sorry` warnings), the
+<Excerpts of the log: the build of the challenge (number of jobs, the 60 `sorry` warnings), the
 export, the build of the solution, the export, the kernels, the verdict. Warnings other than the
 `sorry`s of the challenge and Lake's advisory about importing `Mathlib`, if any.>
 

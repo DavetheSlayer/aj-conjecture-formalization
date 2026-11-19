@@ -75,8 +75,8 @@ DECLS: list[tuple[str, list[str] | str]] = [
     ('AJConjecture/AJStatement', '*'),
     ('AJConjecture/WitnessPolynomials', '*'),
     ('AJConjecture/WhiteheadFormula', '*'),
-    ('AJFamily/Classical/FamilyPolynomials', ['famX', 'famP', 'famQ', 'famK', 'famTau', 'famA',
-        'homCheb', 'famB', 'famBound']),
+    ('AJFamily/Classical/FamilyPolynomials', ['mapC', 'famX', 'famP', 'famQ', 'famK', 'famTau',
+        'famA', 'homCheb', 'famB', 'famBound']),
     ('AJFamily/Classical/BandWord', ['bandWord']),
     ('AJFamily/Classical/FamilyPeripheralBlock', ['SBlock', 'SBlock.word']),
     ('AJFamily/Classical/FamilyPeripheralRun', ['blocksWord']),
@@ -188,8 +188,18 @@ DECLS: list[tuple[str, list[str] | str]] = [
     ('AJTwist/Classical/TwCPolys', ['twP', 'twBound']),
     ('AJHandoff/TorusKnot/PairKMirrorRobust', ['extraFactorMirror']),
     ('AJTwist/Quantum/TwQInput', ['twInput', 'twFormula']),
+    ('AJTwist/Quantum/TwQWindowPoly', ['twBasisPoly', 'twAdjoint', 'twCheb', 'twMatrix',
+        'twCoeff']),
+    ('AJTwist/Quantum/TwQTarget', ['twWindow', 'twZeroTarget', 'twNegTarget', 'twTarget']),
+    ('AJTwist/Quantum/TwQCramerOp', ['twCramerOp']),
+    ('AJTwist/Quantum/TwQTransferOp', ['twTransferOp']),
     ('AJTwist/Main/TwMClauses', ['TwFamilyClauses']),
     ('AJTwist/Knot/TwKFamilyWord', ['twFamilyStrands', 'twFamilyWord']),
+    ('AJPaper/Ideal/PpIDefs', '*'),
+    ('AJPaper/Ideal/PpIConjectures', '*'),
+    ('AJPaper/Ideal/PpIMain', ['PpiIdealClauses']),
+    ('AJPaper/Finger/PpFDefs', '*'),
+    ('AJPaper/Filling/PpATwistBlocks', ['ppaTwistTail', 'ppaTwistBlocks', 'ppaTwistWord']),
     ('SolutionDefs', '*'),
 ]
 # @@END_DECLS@@
@@ -257,14 +267,26 @@ STATEMENTS: list[tuple[str, str]] = [
     # the four families (handoff of 18 November 2026): every twist, both clasps, both companions
     ("Solution.lean", "release_theoremFourFamilies"),
     ("Solution.lean", "release_fourFamilies_coloredJones"),
+    # the further claims of the paper (Proofs/AJPaper): Sections 8.4, 8.5, 9, 7.6, Theorem B.1 (4)
+    ("AJPaper/Sharp/PpSRelease.lean", "release_corollaryUntwisted"),
+    ("AJPaper/Divisor/PpLRelease.lean", "release_wholeSymbolAllTwists"),
+    ("AJPaper/Divisor/PpLRelease.lean", "release_subOneDvd"),
+    ("AJPaper/Divisor/PpLIrreducible.lean", "ppl_irreducible"),
+    ("AJPaper/Ideal/PpIMain.lean", "release_idealFormulations"),
+    ("AJPaper/Finger/PpFMain.lean", "corollary_whitehead_fingerprint"),
+    ("Solution.lean", "release_fillingFactor"),
+    ("Solution.lean", "release_fillingDichotomy"),
+    ("Solution.lean", "release_twistKnots"),
+    ("AJPaper/Zheng/PpZVerbatim.lean", "zhengEstimates_holds"),
+    ("AJPaper/Zheng/PpZVerbatim.lean", "geo_phys_holds"),
 ]
 
 ROOT_DOC = """/-!
 # Release challenge for `lake comparator`
 
-The statements of the release theorems (the v1 release and the four-family theorem of the handoff
-of 18 November 2026), with `sorry` in place of their proofs. Every declaration they depend on is
-in the modules `Challenge.C_<name>`, one for each source file `<name>.lean` of the library
+The statements of the release theorems (the v1 release, the four-family theorem and the further
+claims of arXiv:2611.24826v1), with `sorry` in place of their proofs. Every declaration they depend
+on is in the modules `Challenge.C_<name>`, one for each source file `<name>.lean` of the library
 (`Proofs/`), as a verbatim copy (without docstrings and comments). Knots are given by their braid
 words: a claim about a knot of the library is stated for every `K : BraidKnot` with the knot's
 number of strands and braid word.
@@ -368,7 +390,7 @@ def declarations(rel: str) -> list[Decl]:
         if ln.startswith("import "):
             assert ln == "import Mathlib" or ln.startswith(
                 ("import AJConjecture", "import AJFamily", "import AJHandoff", "import AJTwist",
-                 "import SolutionDefs")), (rel, ln)
+                 "import AJPaper", "import SolutionDefs")), (rel, ln)
     lines = [ln.rstrip() for ln in strip_comments(text, rel).splitlines()
              if ln.strip() and not ln.startswith("import ")]
     decls: list[Decl] = []

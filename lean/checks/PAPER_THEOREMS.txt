@@ -1,0 +1,369 @@
+Exact types of the theorems on the further claims of the paper (output of
+#check @AJConjecture.<name>, Lean 4.36.0-rc2, Mathlib 2657306), in the order of
+PrintAxiomsPaper.lean. Axioms: PrintAxiomsPaper.expected.txt.
+
+AJConjecture.release_corollaryUntwisted : (∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (σ η : Bool),
+        ∃ K, K.strands = AJConjecture.twFamilyStrands r s η 0 ∧ K.word = AJConjecture.twFamilyWord r s σ η 0) ∧
+  ∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (σ η : Bool) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η 0 →
+          K.word = AJConjecture.twFamilyWord r s σ η 0 →
+            (∃ α, AJConjecture.IsRecurrencePolynomial (AJConjecture.coloredJones K) α) ∧
+              (∃ A, AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A) ∧
+                ∀ (A : Polynomial (Polynomial ℤ)),
+                  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A →
+                    ∀ (Q : AJConjecture.RecOp),
+                      Q ≠ 0 →
+                        Polynomial.IsPrimitive Q →
+                          AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                            AJConjecture.specialize Q ≠ 0 ∧
+                              AJConjecture.toComparison A ∣ AJConjecture.toComparison (AJConjecture.specialize Q)
+AJConjecture.release_wholeSymbolAllTwists : (∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+          K.word = AJConjecture.twFamilyWord r s true η ℓ →
+            ∀ (Q : AJConjecture.RecOp),
+              Q ≠ 0 →
+                Polynomial.IsPrimitive Q →
+                  AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                    AJConjecture.toComparison
+                        ((Polynomial.X - 1) * AJConjecture.extraFactor *
+                          AJConjecture.twP (AJConjecture.twIndex η r s ℓ)) ∣
+                      AJConjecture.toComparison (AJConjecture.specialize Q)) ∧
+  ∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+          K.word = AJConjecture.twFamilyWord r s false η ℓ →
+            ∀ (Q : AJConjecture.RecOp),
+              Q ≠ 0 →
+                Polynomial.IsPrimitive Q →
+                  AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                    AJConjecture.toComparison
+                        ((Polynomial.X - 1) * AJConjecture.extraFactorMirror *
+                          (AJConjecture.twP (-AJConjecture.twIndex η r s ℓ)).reverse) ∣
+                      AJConjecture.toComparison (AJConjecture.specialize Q)
+AJConjecture.release_subOneDvd : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    ∀ (σ η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+      K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+        K.word = AJConjecture.twFamilyWord r s σ η ℓ →
+          ∀ (Q : AJConjecture.RecOp),
+            Q ≠ 0 →
+              Polynomial.IsPrimitive Q →
+                AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                  AJConjecture.toComparison (Polynomial.X - 1) ∣ AJConjecture.toComparison (AJConjecture.specialize Q)
+AJConjecture.ppl_irreducible : ∀ (a : ℤ) {β : AJConjecture.Coeff},
+  β ≠ 0 →
+    ∀ {S R : AJConjecture.RecOp},
+      Polynomial.C β * AJConjecture.twTransferOp a = AJConjecture.oreMul AJConjecture.coeffShift S R →
+        Polynomial.natDegree R = 0 ∨ Polynomial.natDegree R = Polynomial.natDegree (AJConjecture.twTransferOp a)
+AJConjecture.release_idealFormulations : (∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+          K.word = AJConjecture.twFamilyWord r s true η ℓ → AJConjecture.PpiIdealClauses K AJConjecture.extraFactor) ∧
+  ∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+          K.word = AJConjecture.twFamilyWord r s false η ℓ →
+            AJConjecture.PpiIdealClauses K AJConjecture.extraFactorMirror
+AJConjecture.corollary_whitehead_fingerprint : (∀ (F : AJConjecture.ComparisonRing),
+    AJConjecture.IsTorusFingerprint true F ↔ Associated F (AJConjecture.toComparison AJConjecture.extraFactor)) ∧
+  ∀ (F : AJConjecture.ComparisonRing),
+    AJConjecture.IsTorusFingerprint false F ↔ Associated F (AJConjecture.toComparison AJConjecture.extraFactorMirror)
+AJConjecture.release_fillingFactor : (∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+          K.word = AJConjecture.twFamilyWord r s true η ℓ →
+            ∀ (A : Polynomial (Polynomial ℤ)),
+              AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A →
+                AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP (-ℓ)) ∣ AJConjecture.toComparison A) ∧
+  ∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+          K.word = AJConjecture.twFamilyWord r s false η ℓ →
+            ∀ (A : Polynomial (Polynomial ℤ)),
+              AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A →
+                AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP ℓ).reverse ∣
+                  AJConjecture.toComparison A
+AJConjecture.release_fillingDichotomy : (∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+          K.word = AJConjecture.twFamilyWord r s true η ℓ →
+            ∀ (A : Polynomial (Polynomial ℤ)),
+              AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A →
+                (Associated (AJConjecture.toComparison A)
+                      (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP (-ℓ))) ∨
+                    Associated (AJConjecture.toComparison A)
+                      (AJConjecture.toComparison (AJConjecture.twBound (-ℓ) (AJConjecture.twIndex η r s ℓ)))) ∧
+                  (AJConjecture.twIndex η r s ℓ = 0 →
+                    Associated (AJConjecture.toComparison A)
+                      (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP (-ℓ))))) ∧
+  ∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ) (K : AJConjecture.BraidKnot),
+        K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+          K.word = AJConjecture.twFamilyWord r s false η ℓ →
+            ∀ (A : Polynomial (Polynomial ℤ)),
+              AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A →
+                (Associated (AJConjecture.toComparison A)
+                      (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP ℓ).reverse) ∨
+                    Associated (AJConjecture.toComparison A)
+                      (AJConjecture.toComparison (AJConjecture.twBound ℓ (-AJConjecture.twIndex η r s ℓ)).reverse)) ∧
+                  (AJConjecture.twIndex η r s ℓ = 0 →
+                    Associated (AJConjecture.toComparison A)
+                      (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP ℓ).reverse))
+AJConjecture.release_twistKnots : ∀ (ℓ : ℤ),
+  (∃ K, K.strands = 3 + AJConjecture.twExtra ℓ ∧ K.word = AJConjecture.ppaTwistWord ℓ) ∧
+    ∀ (K : AJConjecture.BraidKnot),
+      K.strands = 3 + AJConjecture.twExtra ℓ →
+        K.word = AJConjecture.ppaTwistWord ℓ →
+          ∀ (A : Polynomial (Polynomial ℤ)),
+            AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A →
+              Associated (AJConjecture.toComparison A)
+                (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP (-ℓ)))
+AJConjecture.zhengEstimates_holds : ∀ (a : ℕ), 3 ≤ a → Odd a → AJConjecture.ZhengEstimates a
+AJConjecture.geo_phys_holds : ∀ (a : ℕ),
+  3 ≤ a →
+    Odd a →
+      (∀ (N : ℕ), 1 ≤ N → AJConjecture.geoZhengLeading a N ≠ 0) ∧
+        Filter.Tendsto (fun N => AJConjecture.geoZhengDiagonal a N / AJConjecture.geoZhengLeading a N) Filter.atTop
+          (nhds 1)
+@AJConjecture.corollary_untwisted_reverse : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (σ η : Bool),
+  AJConjecture.PpsReverseClauses (AJConjecture.twFamilyKnot r s h σ η 0)
+@AJConjecture.pps_symbol_dvd_negClasp : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ),
+  AJConjecture.twIndex η r s ℓ ≠ 0 →
+    ∀ (Q : AJConjecture.RecOp),
+      Q ≠ 0 →
+        Polynomial.IsPrimitive Q →
+          AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones (AJConjecture.twFamilyKnot r s h true η ℓ)) Q →
+            AJConjecture.toComparison (AJConjecture.ppsSymbol (AJConjecture.twIndex η r s ℓ)) ∣
+              AJConjecture.toComparison (AJConjecture.specialize Q)
+@AJConjecture.pps_symbol_dvd_posClasp : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ),
+  AJConjecture.twIndex η r s ℓ ≠ 0 →
+    ∀ (Q : AJConjecture.RecOp),
+      Q ≠ 0 →
+        Polynomial.IsPrimitive Q →
+          AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones (AJConjecture.twFamilyKnot r s h false η ℓ))
+              Q →
+            AJConjecture.toComparison (AJConjecture.ppsSymbolMirror (-AJConjecture.twIndex η r s ℓ)) ∣
+              AJConjecture.toComparison (AJConjecture.specialize Q)
+AJConjecture.release_wholeSymbol : (∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ),
+        AJConjecture.twIndex η r s ℓ ≠ 0 →
+          ∀ (K : AJConjecture.BraidKnot),
+            K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+              K.word = AJConjecture.twFamilyWord r s true η ℓ →
+                ∀ (Q : AJConjecture.RecOp),
+                  Q ≠ 0 →
+                    Polynomial.IsPrimitive Q →
+                      AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                        AJConjecture.toComparison
+                            ((Polynomial.X - 1) * AJConjecture.extraFactor *
+                              AJConjecture.twP (AJConjecture.twIndex η r s ℓ)) ∣
+                          AJConjecture.toComparison (AJConjecture.specialize Q)) ∧
+  ∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ),
+        AJConjecture.twIndex η r s ℓ ≠ 0 →
+          ∀ (K : AJConjecture.BraidKnot),
+            K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+              K.word = AJConjecture.twFamilyWord r s false η ℓ →
+                ∀ (Q : AJConjecture.RecOp),
+                  Q ≠ 0 →
+                    Polynomial.IsPrimitive Q →
+                      AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                        AJConjecture.toComparison
+                            ((Polynomial.X - 1) * AJConjecture.extraFactorMirror *
+                              (AJConjecture.twP (-AJConjecture.twIndex η r s ℓ)).reverse) ∣
+                          AJConjecture.toComparison (AJConjecture.specialize Q)
+@AJConjecture.ppl_no_quadratic : ∀ {β : AJConjecture.Coeff},
+  β ≠ 0 →
+    ∀ {S R : AJConjecture.RecOp},
+      Polynomial.C β * AJConjecture.twTransferOp 0 = AJConjecture.oreMul AJConjecture.coeffShift S R →
+        Polynomial.natDegree R ≠ 2
+@AJConjecture.ppl_irreducible_zero : ∀ {β : AJConjecture.Coeff},
+  β ≠ 0 →
+    ∀ {S R : AJConjecture.RecOp},
+      Polynomial.C β * AJConjecture.twTransferOp 0 = AJConjecture.oreMul AJConjecture.coeffShift S R →
+        Polynomial.natDegree R = 0 ∨ Polynomial.natDegree R = Polynomial.natDegree (AJConjecture.twTransferOp 0)
+@AJConjecture.ppl_symbol_dvd_negClasp : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ)
+  (Q : AJConjecture.RecOp),
+  Q ≠ 0 →
+    Polynomial.IsPrimitive Q →
+      AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones (AJConjecture.twFamilyKnot r s h true η ℓ)) Q →
+        AJConjecture.toComparison (AJConjecture.ppsSymbol (AJConjecture.twIndex η r s ℓ)) ∣
+          AJConjecture.toComparison (AJConjecture.specialize Q)
+@AJConjecture.ppl_symbol_dvd_posClasp : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ)
+  (Q : AJConjecture.RecOp),
+  Q ≠ 0 →
+    Polynomial.IsPrimitive Q →
+      AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones (AJConjecture.twFamilyKnot r s h false η ℓ)) Q →
+        AJConjecture.toComparison (AJConjecture.ppsSymbolMirror (-AJConjecture.twIndex η r s ℓ)) ∣
+          AJConjecture.toComparison (AJConjecture.specialize Q)
+@AJConjecture.ppl_zero_dvd_negClasp : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ),
+  AJConjecture.twIndex η r s ℓ = 0 →
+    ∀ (Q : AJConjecture.RecOp),
+      Q ≠ 0 →
+        Polynomial.IsPrimitive Q →
+          AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones (AJConjecture.twFamilyKnot r s h true η ℓ)) Q →
+            AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.extraFactor) ∣
+              AJConjecture.toComparison (AJConjecture.specialize Q)
+@AJConjecture.ppl_zero_dvd_posClasp : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ),
+  AJConjecture.twIndex η r s ℓ = 0 →
+    ∀ (Q : AJConjecture.RecOp),
+      Q ≠ 0 →
+        Polynomial.IsPrimitive Q →
+          AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones (AJConjecture.twFamilyKnot r s h false η ℓ))
+              Q →
+            AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.extraFactorMirror) ∣
+              AJConjecture.toComparison (AJConjecture.specialize Q)
+@AJConjecture.ppl_sub_one_dvd : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (σ η : Bool) (ℓ : ℤ)
+  (Q : AJConjecture.RecOp),
+  Q ≠ 0 →
+    Polynomial.IsPrimitive Q →
+      AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones (AJConjecture.twFamilyKnot r s h σ η ℓ)) Q →
+        AJConjecture.toComparison (Polynomial.X - 1) ∣ AJConjecture.toComparison (AJConjecture.specialize Q)
+AJConjecture.release_indexZero : (∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ),
+        AJConjecture.twIndex η r s ℓ = 0 →
+          ∀ (K : AJConjecture.BraidKnot),
+            K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+              K.word = AJConjecture.twFamilyWord r s true η ℓ →
+                ∀ (Q : AJConjecture.RecOp),
+                  Q ≠ 0 →
+                    Polynomial.IsPrimitive Q →
+                      AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                        AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.extraFactor) ∣
+                          AJConjecture.toComparison (AJConjecture.specialize Q)) ∧
+  ∀ (r s : ℕ),
+    AJConjecture.IsTorusPair r s →
+      ∀ (η : Bool) (ℓ : ℤ),
+        AJConjecture.twIndex η r s ℓ = 0 →
+          ∀ (K : AJConjecture.BraidKnot),
+            K.strands = AJConjecture.twFamilyStrands r s η ℓ →
+              K.word = AJConjecture.twFamilyWord r s false η ℓ →
+                ∀ (Q : AJConjecture.RecOp),
+                  Q ≠ 0 →
+                    Polynomial.IsPrimitive Q →
+                      AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                        AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.extraFactorMirror) ∣
+                          AJConjecture.toComparison (AJConjecture.specialize Q)
+@AJConjecture.theoremIdealFormulations : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (σ η : Bool) (ℓ : ℤ),
+  AJConjecture.PpiIdealClauses (AJConjecture.twFamilyKnot r s h σ η ℓ) (AJConjecture.twFamilyFactor σ)
+@AJConjecture.ppi_eval_eps_eq_zero : ∀ {K : AJConjecture.BraidKnot} {G : Polynomial (Polynomial ℤ)},
+  (∀ (Q : AJConjecture.RecOp),
+      AJConjecture.Annihilates Q (AJConjecture.coloredJones K) → G ∣ AJConjecture.specialize Q) →
+    ∀ {P : AJConjecture.PpiOp ℂ},
+      AJConjecture.PpiAnnihilates P K →
+        ∀ {p : ℂ × ℂ},
+          p.1 ≠ 0 →
+            p.2 ≠ 0 →
+              AJConjecture.evalPoint (AJConjecture.mapC G) p = 0 → AJConjecture.ppiEval p (AJConjecture.ppiEps P) = 0
+@AJConjecture.ppi_exists_point : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (σ η : Bool) (ℓ : ℤ),
+  ∃ p,
+    p.1 ≠ 0 ∧
+      p.2 ≠ 0 ∧
+        AJConjecture.evalPoint (AJConjecture.mapC (AJConjecture.twFamilyFactor σ)) p = 0 ∧
+          p ∉ AJConjecture.zariskiClosure (AJConjecture.eigenvalueSet (AJConjecture.twFamilyKnot r s h σ η ℓ)) ∧
+            (p.1⁻¹, p.2⁻¹) ∉
+              AJConjecture.zariskiClosure (AJConjecture.eigenvalueSet (AJConjecture.twFamilyKnot r s h σ η ℓ))
+@AJConjecture.not_ppiTranConjecture_of_point : ∀ {K : AJConjecture.BraidKnot} {p : ℂ × ℂ},
+  p.1 ≠ 0 →
+    p.2 ≠ 0 →
+      p ∉ AJConjecture.zariskiClosure (AJConjecture.eigenvalueSet K) →
+        (∀ (P : AJConjecture.PpiOp ℂ),
+            AJConjecture.PpiAnnihilates P K → AJConjecture.ppiEval p (AJConjecture.ppiEps P) = 0) →
+          ¬AJConjecture.PpiTranConjecture K
+@AJConjecture.not_ppiSikoraConjecture_of_point : ∀ {K : AJConjecture.BraidKnot} {p : ℂ × ℂ},
+  p.1 ≠ 0 →
+    p.2 ≠ 0 →
+      p ∉ AJConjecture.zariskiClosure (AJConjecture.eigenvalueSet K) →
+        (∀ (P : AJConjecture.PpiOp ℂ),
+            AJConjecture.PpiAnnihilates P K → AJConjecture.ppiEval p (AJConjecture.ppiEps P) = 0) →
+          ¬AJConjecture.PpiSikoraConjecture K
+AJConjecture.isTorusFingerprint_extraFactor : AJConjecture.IsTorusFingerprint true
+  (AJConjecture.toComparison AJConjecture.extraFactor)
+AJConjecture.isTorusFingerprint_extraFactorMirror : AJConjecture.IsTorusFingerprint false
+  (AJConjecture.toComparison AJConjecture.extraFactorMirror)
+@AJConjecture.ppf_recurrencePolynomial_bar : ∀ {J J' : ℤ → LaurentPolynomial ℤ},
+  (∀ (n : ℤ), AJConjecture.laurentToField (J' n) = AJConjecture.twQBar (AJConjecture.laurentToField (J n))) →
+    ∀ {α' : AJConjecture.RecOp},
+      AJConjecture.IsRecurrencePolynomial J' α' →
+        ∃ α,
+          AJConjecture.IsRecurrencePolynomial J α ∧
+            Associated (AJConjecture.toComparison (AJConjecture.specialize α'))
+              (AJConjecture.ppsMInv (AJConjecture.toComparison (AJConjecture.specialize α)))
+@AJConjecture.ppf_aPolynomial_inv : ∀ {K : AJConjecture.BraidKnot} {A A' : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A →
+    AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K.inv) A' →
+      Associated (AJConjecture.toComparison A') (LaurentPolynomial.invert (AJConjecture.toComparison A))
+@AJConjecture.ppa_fillingFactor_dvd_neg : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ)
+  {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.twFamilyKnot r s h true η ℓ)) A →
+    AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP (-ℓ)) ∣ AJConjecture.toComparison A
+@AJConjecture.ppa_fillingFactor_dvd_pos : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ)
+  {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.twFamilyKnot r s h false η ℓ)) A →
+    AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP ℓ).reverse ∣ AJConjecture.toComparison A
+@AJConjecture.ppa_aPolynomial_cases_neg : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ)
+  {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.twFamilyKnot r s h true η ℓ)) A →
+    Associated (AJConjecture.toComparison A) (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP (-ℓ))) ∨
+      Associated (AJConjecture.toComparison A)
+        (AJConjecture.toComparison (AJConjecture.twBound (-ℓ) (AJConjecture.twIndex η r s ℓ)))
+@AJConjecture.ppa_aPolynomial_cases_pos : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ)
+  {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.twFamilyKnot r s h false η ℓ)) A →
+    Associated (AJConjecture.toComparison A)
+        (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP ℓ).reverse) ∨
+      Associated (AJConjecture.toComparison A)
+        (AJConjecture.toComparison (AJConjecture.twBound ℓ (-AJConjecture.twIndex η r s ℓ)).reverse)
+@AJConjecture.ppa_aPolynomial_of_index_zero_neg : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ),
+  AJConjecture.twIndex η r s ℓ = 0 →
+    ∀ {A : Polynomial (Polynomial ℤ)},
+      AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.twFamilyKnot r s h true η ℓ)) A →
+        Associated (AJConjecture.toComparison A)
+          (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP (-ℓ)))
+@AJConjecture.ppa_aPolynomial_of_index_zero_pos : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (η : Bool) (ℓ : ℤ),
+  AJConjecture.twIndex η r s ℓ = 0 →
+    ∀ {A : Polynomial (Polynomial ℤ)},
+      AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.twFamilyKnot r s h false η ℓ)) A →
+        Associated (AJConjecture.toComparison A)
+          (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP ℓ).reverse)
+AJConjecture.ppa_aPolynomial_twistKnot : ∀ (ℓ : ℤ) {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.ppaTwistKnot ℓ)) A →
+    Associated (AJConjecture.toComparison A) (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP (-ℓ)))
+AJConjecture.ppa_aPolynomial_pureClosure : ∀ (k : ℤ) {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.ppaTwistKnot (-k))) A →
+    Associated (AJConjecture.toComparison A) (AJConjecture.toComparison ((Polynomial.X - 1) * AJConjecture.twP k))
+AJConjecture.zhengLemma32_holds : AJConjecture.ZhengLemma32
+AJConjecture.zhengLemma33_holds : ∀ (β : ℝ) {δ : ℝ}, 1 / 2 < δ → δ < 2 / 3 → AJConjecture.ZhengLemma33 β δ
+AJConjecture.zhengEq512_holds : ∀ (a : ℕ), Odd a → AJConjecture.ZhengEq512 a
+AJConjecture.zhengEq520_holds : ∀ (a : ℕ), Odd a → AJConjecture.ZhengEq520 a
+AJConjecture.zhengProp41_holds : ∀ (a : ℕ), 3 ≤ a → Odd a → AJConjecture.ZhengProp41 a
+AJConjecture.zhengVerbatim_holds : ∀ (a : ℕ), 3 ≤ a → Odd a → AJConjecture.ZhengVerbatim a
+@AJConjecture.ppZ_strip_shift_simple_pole : ∀ {P Q : ℂ → ℂ} {Y₁ Y₂ M R : ℝ} {w₀ : ℂ},
+  Differentiable ℂ P →
+    Differentiable ℂ Q →
+      Y₁ < w₀.im →
+        w₀.im < Y₂ →
+          Q w₀ = 0 →
+            deriv Q w₀ ≠ 0 →
+              (∀ (w : ℂ), Y₁ ≤ w.im → w.im ≤ Y₂ → w ≠ w₀ → Q w ≠ 0) →
+                (∀ (x y : ℝ),
+                    Y₁ ≤ y → y ≤ Y₂ → R ≤ |x| → ‖P (↑x + ↑y * Complex.I) / Q (↑x + ↑y * Complex.I)‖ ≤ M / (1 + x ^ 2)) →
+                  (∫ (x : ℝ), P (↑x + ↑Y₁ * Complex.I) / Q (↑x + ↑Y₁ * Complex.I)) -
+                      ∫ (x : ℝ), P (↑x + ↑Y₂ * Complex.I) / Q (↑x + ↑Y₂ * Complex.I) =
+                    2 * ↑Real.pi * Complex.I * (P w₀ / deriv Q w₀)

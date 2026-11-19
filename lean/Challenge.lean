@@ -14,17 +14,17 @@ import Challenge.C_GeoVolumeHyperbolic
 import Challenge.C_PairQJetsIndexResidual
 import Challenge.C_PairKWhDDefs
 import Challenge.C_GeoZhVerbatim
-import Challenge.C_TwQInput
-import Challenge.C_TwMClauses
-import Challenge.C_TwKFamilyWord
+import Challenge.C_PpIMain
+import Challenge.C_PpFDefs
+import Challenge.C_PpATwistBlocks
 import Challenge.C_SolutionDefs
 
 /-!
 # Release challenge for `lake comparator`
 
-The statements of the release theorems (the v1 release and the four-family theorem of the handoff
-of 18 November 2026), with `sorry` in place of their proofs. Every declaration they depend on is
-in the modules `Challenge.C_<name>`, one for each source file `<name>.lean` of the library
+The statements of the release theorems (the v1 release, the four-family theorem and the further
+claims of arXiv:2611.24826v1), with `sorry` in place of their proofs. Every declaration they depend
+on is in the modules `Challenge.C_<name>`, one for each source file `<name>.lean` of the library
 (`Proofs/`), as a verbatim copy (without docstrings and comments). Knots are given by their braid
 words: a claim about a knot of the library is stated for every `K : BraidKnot` with the knot's
 number of strands and braid word.
@@ -689,6 +689,137 @@ theorem release_fourFamilies_coloredJones :
         (K.word = twFamilyWord r s false η ℓ →
           ∀ n : ℤ, laurentToField (LaurentPolynomial.invert (coloredJones K n)) =
             twFormula (!η) r s (-ℓ) n) := by
+  sorry
+end
+
+section
+open Polynomial
+theorem release_corollaryUntwisted :
+    (∀ r s : ℕ, IsTorusPair r s → ∀ σ η : Bool, ∃ K : BraidKnot,
+      K.strands = twFamilyStrands r s η 0 ∧ K.word = twFamilyWord r s σ η 0) ∧
+    ∀ r s : ℕ, IsTorusPair r s → ∀ (σ η : Bool) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η 0 → K.word = twFamilyWord r s σ η 0 →
+        (∃ α : RecOp, IsRecurrencePolynomial (coloredJones K) α) ∧
+        (∃ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A) ∧
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          ∀ Q : RecOp, Q ≠ 0 → Q.IsPrimitive → InLocalizedAnnihilator (coloredJones K) Q →
+            specialize Q ≠ 0 ∧ toComparison A ∣ toComparison (specialize Q) := by
+  sorry
+end
+
+section
+open Polynomial
+theorem release_wholeSymbolAllTwists :
+    (∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s true η ℓ →
+        ∀ Q : RecOp, Q ≠ 0 → Q.IsPrimitive → InLocalizedAnnihilator (coloredJones K) Q →
+          toComparison ((X - 1) * extraFactor * twP (twIndex η r s ℓ)) ∣
+            toComparison (specialize Q)) ∧
+    ∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s false η ℓ →
+        ∀ Q : RecOp, Q ≠ 0 → Q.IsPrimitive → InLocalizedAnnihilator (coloredJones K) Q →
+          toComparison ((X - 1) * extraFactorMirror * (twP (-(twIndex η r s ℓ))).reverse) ∣
+            toComparison (specialize Q) := by
+  sorry
+end
+
+section
+open Polynomial
+theorem release_subOneDvd :
+    ∀ r s : ℕ, IsTorusPair r s → ∀ (σ η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s σ η ℓ →
+        ∀ Q : RecOp, Q ≠ 0 → Q.IsPrimitive → InLocalizedAnnihilator (coloredJones K) Q →
+          toComparison (X - 1) ∣ toComparison (specialize Q) := by
+  sorry
+end
+
+section
+open Polynomial
+theorem ppl_irreducible (a : ℤ) {β : Coeff} (hβ : β ≠ 0) {S R : RecOp}
+    (h : C β * twTransferOp a = oreMul coeffShift S R) :
+    R.natDegree = 0 ∨ R.natDegree = (twTransferOp a).natDegree := by
+  sorry
+end
+
+section
+open Polynomial
+theorem release_idealFormulations :
+    (∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s true η ℓ →
+        PpiIdealClauses K extraFactor) ∧
+    ∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s false η ℓ →
+        PpiIdealClauses K extraFactorMirror := by
+  sorry
+end
+
+section
+open Polynomial
+theorem corollary_whitehead_fingerprint :
+    (∀ F : ComparisonRing, IsTorusFingerprint true F ↔
+      Associated F (toComparison extraFactor)) ∧
+    ∀ F : ComparisonRing, IsTorusFingerprint false F ↔
+      Associated F (toComparison extraFactorMirror) := by
+  sorry
+end
+
+section
+open Polynomial
+theorem release_fillingFactor :
+    (∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s true η ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          toComparison ((X - 1) * twP (-ℓ)) ∣ toComparison A) ∧
+    ∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s false η ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          toComparison ((X - 1) * twP ℓ).reverse ∣ toComparison A := by
+  sorry
+end
+
+section
+open Polynomial
+theorem release_fillingDichotomy :
+    (∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s true η ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          (Associated (toComparison A) (toComparison ((X - 1) * twP (-ℓ))) ∨
+            Associated (toComparison A) (toComparison (twBound (-ℓ) (twIndex η r s ℓ)))) ∧
+          (twIndex η r s ℓ = 0 →
+            Associated (toComparison A) (toComparison ((X - 1) * twP (-ℓ))))) ∧
+    ∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s false η ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          (Associated (toComparison A) (toComparison ((X - 1) * twP ℓ).reverse) ∨
+            Associated (toComparison A)
+              (toComparison (twBound ℓ (-(twIndex η r s ℓ))).reverse)) ∧
+          (twIndex η r s ℓ = 0 →
+            Associated (toComparison A) (toComparison ((X - 1) * twP ℓ).reverse)) := by
+  sorry
+end
+
+section
+open Polynomial
+theorem release_twistKnots :
+    ∀ ℓ : ℤ,
+      (∃ K : BraidKnot, K.strands = 3 + twExtra ℓ ∧ K.word = ppaTwistWord ℓ) ∧
+      ∀ K : BraidKnot, K.strands = 3 + twExtra ℓ → K.word = ppaTwistWord ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          Associated (toComparison A) (toComparison ((X - 1) * twP (-ℓ))) := by
+  sorry
+end
+
+section
+open Filter Topology
+theorem zhengEstimates_holds (a : ℕ) (ha : 3 ≤ a) (hodd : Odd a) : ZhengEstimates a := by
+  sorry
+end
+
+section
+open Filter Topology
+theorem geo_phys_holds (a : ℕ) (ha : 3 ≤ a) (hodd : Odd a) :
+    (∀ N : ℕ, 1 ≤ N → geoZhengLeading a N ≠ 0) ∧
+      Tendsto (fun N : ℕ ↦ geoZhengDiagonal a N / geoZhengLeading a N) atTop (𝓝 1) := by
   sorry
 end
 

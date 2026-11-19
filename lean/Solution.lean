@@ -8,19 +8,21 @@ import AJHandoff.TorusKnot.PairKWhDBandTorus
 import AJHandoff.TorusKnot.PairKJonesTwoNe
 import AJHandoff.Geometry.GeoZhVerbatim
 import AJTwist
+import AJPaper
 import SolutionDefs
 
 /-!
 # The solution: the release theorems in braid-word form
 
-The core claims of the v1 release and the four-family theorem of the handoff of 18 November 2026,
-stated so that every constant they mention is a *data*
-definition (a number of strands, a braid word, a polynomial) or one of the baseline predicates of
-`AJConjecture.AJStatement`. The knots are not named by the constants `pairWhiteheadKnot r s h` and
-`whiteheadTorusKnot k hk`, whose definitions carry the proofs that the braid closes up to a knot;
-instead each claim quantifies over every `K : BraidKnot` with the given number of strands and the
-given braid word. Since the remaining fields of a `BraidKnot` are proofs, there is exactly one such
-`K`, and the existence clauses below say that it exists (the word closes up to a knot).
+The core claims of the v1 release, the four-family theorem (Theorem 1.1 of arXiv:2611.24826v1) and
+the further claims of the paper proved in `Proofs/AJPaper/`, stated so that every constant they
+mention is a *data* definition (a number of strands, a braid word, a polynomial) or one of the
+baseline predicates of `AJConjecture.AJStatement`. The knots are not named by the constants
+`pairWhiteheadKnot r s h` and `whiteheadTorusKnot k hk`, whose definitions carry the proofs that
+the braid closes up to a knot; instead each claim quantifies over every `K : BraidKnot` with the
+given number of strands and the given braid word. Since the remaining fields of a `BraidKnot` are
+proofs, there is exactly one such `K`, and the existence clauses below say that it exists (the word
+closes up to a knot).
 
 * `release_theoremT`: **Theorem T** for the untwisted negative-clasp Whitehead doubles
   `Wh⁻₀(T(r, s))`, every coprime `2 ≤ r < s`, as the closures of `pairWhiteheadWord r s` on
@@ -63,6 +65,13 @@ given braid word. Since the remaining fields of a `BraidKnot` are proofs, there 
   cyclotomic formula of the manuscript with the twisted input (`twFormula η r s ℓ`, the unreduced
   `[n] F_n` with `q = t⁴`) for the negative clasp; for the positive clasp its image under
   `t ↦ t⁻¹` is the formula of the mirror knot (`twFormula (!η) r s (-ℓ)`).
+* `release_fillingFactor`, `release_fillingDichotomy`, `release_twistKnots`: **Section 7.6** of
+  the paper. Every A-polynomial of the negative-clasp satellite `W_(-,ℓ)(T_η)` is divisible by the
+  companion-abelian filling factor `(L - 1) 𝒫_(-ℓ)` (for the positive clasp by the reverse in `L`
+  of `(L - 1) 𝒫_ℓ`); it is associated to that factor or to the full bound, and to that factor when
+  `a = 0`; and for every `ℓ` the word `ppaTwistWord ℓ` on `3 + twExtra ℓ` strands closes up to
+  a knot (the pure closure `Z_ℓ`, a twist knot) whose A-polynomials are associated to
+  `(L - 1) 𝒫_(-ℓ)`.
 * `release_theoremG`: Theorem G with the knots given by their braid words, without the units whose
   definitions use `private` library lemmas; `release_theoremG_supplement`: those units, stated
   with the replacement definitions of `Proofs/SolutionDefs.lean` (equal to the library's up to
@@ -79,9 +88,15 @@ Whitehead double of long-knot diagrams is well defined and untwisted); `zhengEq5
 `zhengEq519_of_zhengEq512`, `zhengEstimates_of_verbatim`, `geo_phys_of_zhengVerbatim` (G-PHYS
 conditional only on Zheng's printed estimates); the units of Theorem I and of the sequence theorem
 listed in `comparator.json`; `pairQJets_abNode`, `pairQJets_ebNode` (T-JETS) and
-`pairQ_transferOp_oreIrreducible` (T-IRR). `Challenge.lean` is generated from the library (`Proofs/`)
-and this file by `tools/make_challenge.py`; `lake comparator` checks the theorems of
-`comparator.json` against it.
+`pairQ_transferOp_oreIrreducible` (T-IRR); and, from `Proofs/AJPaper/`,
+`release_corollaryUntwisted` (Corollary 8.3: `A_S ∣ f_S` for the untwisted doubles of all four
+families), `release_wholeSymbolAllTwists` (`(L - 1) E 𝒫_a ∣ f_S` for every twist),
+`release_subOneDvd` (`L - 1 ∣ f_S`), `ppl_irreducible` (the transfer operator is irreducible for
+every index `a`), `release_idealFormulations` (Section 8.5: the ideal formulations of Tran and of
+Sikora fail), `corollary_whitehead_fingerprint` (Corollary 9.2), `zhengEstimates_holds` (Zheng's
+estimates, for the companions `T(a, 2)` with `a ≥ 3` odd) and `geo_phys_holds` (Theorem B.1 (4)
+without hypothesis). `Challenge.lean` is generated from the library (`Proofs/`) and this file by
+`tools/make_challenge.py`; `lake comparator` checks the theorems of `comparator.json` against it.
 `B_m` is the classical twist factor `famB m`; the quantum `twistPoly m` of the library agrees with
 it for `m ≥ 1` (`famB_eq_twistPoly`). The filling polynomial `𝒫_k` of the four-family theorem is
 `twP k`: `twistPoly k` for `k ≥ 0` (so `𝒫_0 = 1`) and `twistPolyNeg (-k)`, the `C_(-k)` of the
@@ -246,6 +261,79 @@ theorem release_fourFamilies_coloredJones :
     rw [Bool.not_false] at hm
     rw [← twm_coloredJones_negClasp h (!η) (-ℓ) n, hm]
     rfl
+
+/-- **Section 7.6, the companion-abelian filling factor**, in braid-word form: for coprime
+`2 ≤ r < s`, both companions `η` and every twist `ℓ`, every A-polynomial of a closed braid with
+the data of the negative-clasp satellite `W_(-,ℓ)(T_η)` is divisible by `(L - 1) 𝒫_(-ℓ)` in
+`ℚ(M)[L, L⁻¹]`, and every A-polynomial of a closed braid with the data of the positive-clasp
+satellite `W_(+,ℓ)(T_η)` is divisible by the reverse in `L` of `(L - 1) 𝒫_ℓ`. -/
+theorem release_fillingFactor :
+    (∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s true η ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          toComparison ((X - 1) * twP (-ℓ)) ∣ toComparison A) ∧
+    ∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s false η ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          toComparison ((X - 1) * twP ℓ).reverse ∣ toComparison A := by
+  refine ⟨fun r s h η ℓ K hs hw A hA ↦ ?_, fun r s h η ℓ K hs hw A hA ↦ ?_⟩
+  · rw [eq_twFamilyKnot_of_word h true η ℓ hs hw] at hA
+    exact ppa_fillingFactor_dvd_neg h η ℓ hA
+  · rw [eq_twFamilyKnot_of_word h false η ℓ hs hw] at hA
+    exact ppa_fillingFactor_dvd_pos h η ℓ hA
+
+/-- **The A-polynomial of the twisted doubles up to one factor** (Section 7.6 with the bound
+(41)), in braid-word form: every A-polynomial of the negative-clasp satellite `W_(-,ℓ)(T_η)` is
+associated in `ℚ(M)[L, L⁻¹]` to `(L - 1) 𝒫_(-ℓ)` or to the full bound `(L - 1) 𝒫_(-ℓ) 𝒫_a`,
+`a = η r s - ℓ`, and to `(L - 1) 𝒫_(-ℓ)` when `a = 0`; for the positive clasp the same holds
+with the reverses in `L` of `(L - 1) 𝒫_ℓ` and of `(L - 1) 𝒫_ℓ 𝒫_(-a)`. -/
+theorem release_fillingDichotomy :
+    (∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s true η ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          (Associated (toComparison A) (toComparison ((X - 1) * twP (-ℓ))) ∨
+            Associated (toComparison A) (toComparison (twBound (-ℓ) (twIndex η r s ℓ)))) ∧
+          (twIndex η r s ℓ = 0 →
+            Associated (toComparison A) (toComparison ((X - 1) * twP (-ℓ))))) ∧
+    ∀ r s : ℕ, IsTorusPair r s → ∀ (η : Bool) (ℓ : ℤ) (K : BraidKnot),
+      K.strands = twFamilyStrands r s η ℓ → K.word = twFamilyWord r s false η ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          (Associated (toComparison A) (toComparison ((X - 1) * twP ℓ).reverse) ∨
+            Associated (toComparison A)
+              (toComparison (twBound ℓ (-(twIndex η r s ℓ))).reverse)) ∧
+          (twIndex η r s ℓ = 0 →
+            Associated (toComparison A) (toComparison ((X - 1) * twP ℓ).reverse)) := by
+  refine ⟨fun r s h η ℓ K hs hw A hA ↦ ?_, fun r s h η ℓ K hs hw A hA ↦ ?_⟩
+  · rw [eq_twFamilyKnot_of_word h true η ℓ hs hw] at hA
+    exact ⟨ppa_aPolynomial_cases_neg h η ℓ hA,
+      fun ha ↦ ppa_aPolynomial_of_index_zero_neg h η ℓ ha hA⟩
+  · rw [eq_twFamilyKnot_of_word h false η ℓ hs hw] at hA
+    exact ⟨ppa_aPolynomial_cases_pos h η ℓ hA,
+      fun ha ↦ ppa_aPolynomial_of_index_zero_pos h η ℓ ha hA⟩
+
+/-- A braid knot with the strands and the word of `ppaTwistKnot ℓ` is that knot. -/
+private theorem eq_ppaTwistKnot_of_word (ℓ : ℤ) {K : BraidKnot}
+    (hs : K.strands = 3 + twExtra ℓ) (hw : K.word = ppaTwistWord ℓ) : K = ppaTwistKnot ℓ := by
+  obtain ⟨m, w, _, _, _⟩ := K
+  dsimp only at hs hw
+  subst hs hw
+  rfl
+
+/-- **The A-polynomial of the twist knots** (Section 7.6), in braid-word form: for every
+`ℓ ∈ ℤ` the word `ppaTwistWord ℓ` on `3 + twExtra ℓ` strands closes up to a knot (the pure
+closure `Z_ℓ` of the pattern, a twist knot), and every A-polynomial of such a closed braid is
+associated to `(L - 1) 𝒫_(-ℓ)` in `ℚ(M)[L, L⁻¹]`; in the indexing of the paper,
+`A_(Z_(-k)) ≐ (L - 1) 𝒫_k`. -/
+theorem release_twistKnots :
+    ∀ ℓ : ℤ,
+      (∃ K : BraidKnot, K.strands = 3 + twExtra ℓ ∧ K.word = ppaTwistWord ℓ) ∧
+      ∀ K : BraidKnot, K.strands = 3 + twExtra ℓ → K.word = ppaTwistWord ℓ →
+        ∀ A : ℤ[X][X], IsAPolynomialOf (eigenvalueSet K) A →
+          Associated (toComparison A) (toComparison ((X - 1) * twP (-ℓ))) := by
+  intro ℓ
+  refine ⟨⟨ppaTwistKnot ℓ, rfl, rfl⟩, fun K hs hw A hA ↦ ?_⟩
+  rw [eq_ppaTwistKnot_of_word ℓ hs hw] at hA
+  exact ppa_aPolynomial_twistKnot ℓ hA
 
 /-- **I-GAUGE, ramified pullback** (`hasSimpleResidue_ramify`), stated with `ratRamifyR`, the
 replacement for `ratRamify` (`Proofs/SolutionDefs.lean`; they differ only in a proof term). -/

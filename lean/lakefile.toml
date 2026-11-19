@@ -28,6 +28,9 @@ rev = "26573066084e6e2aa8526ea358bc43b66d96f970"
 #                  chiralities; its root module names `AJConjecture.theoremFourFamilies`
 #                  (Proofs/AJTwist/Main/TwMTheorem.lean). Packages: Knot, Quantum, Exist, Factor,
 #                  Select, Classical, Main.
+#   AJPaper        the further claims of the paper that need no topology: Sections 7.6, 8.4,
+#                  8.5 and 9, and Zheng's estimates for Theorem B.1 (4). Packages: Sharp,
+#                  Divisor, Ideal, Finger, Filling, Zheng; index in Proofs/AJPaper.lean.
 #   SolutionDefs   replacement definitions used by the statements of `Solution.lean` (they differ
 #                  from the library's definitions only in proof terms).
 # The globs make `lake build` check every file of the folder, including those that the root
@@ -35,8 +38,8 @@ rev = "26573066084e6e2aa8526ea358bc43b66d96f970"
 [[lean_lib]]
 name = "Proofs"
 srcDir = "Proofs"
-roots = ["AJConjecture", "AJFamily", "AJHandoff", "AJTwist", "SolutionDefs"]
-globs = ["AJConjecture.*", "AJFamily.*", "AJHandoff.*", "AJTwist.*", "SolutionDefs"]
+roots = ["AJConjecture", "AJFamily", "AJHandoff", "AJTwist", "AJPaper", "SolutionDefs"]
+globs = ["AJConjecture.*", "AJFamily.*", "AJHandoff.*", "AJTwist.*", "AJPaper.*", "SolutionDefs"]
 
 # The solution: one file, `Solution.lean`. It states the release theorems (data-only statements)
 # and proves them from the modules of `Proofs/`.
