@@ -1,0 +1,15 @@
+k=1: Lean twistPoly k == paper B_k: True;  Lean twistPolyNeg k == paper C_k: True
+k=2: Lean twistPoly k == paper B_k: True;  Lean twistPolyNeg k == paper C_k: True
+k=3: Lean twistPoly k == paper B_k: True;  Lean twistPolyNeg k == paper C_k: True
+k=4: Lean twistPoly k == paper B_k: True;  Lean twistPolyNeg k == paper C_k: True
+k=5: Lean twistPoly k == paper B_k: True;  Lean twistPolyNeg k == paper C_k: True
+k=6: Lean twistPoly k == paper B_k: True;  Lean twistPolyNeg k == paper C_k: True
+twistPoly 0 = 1 ; twistPolyNeg 1 = L + M**6 ; twistPoly 1 = L**2*M**4 - L*M**8 + L*M**6 + 2*L*M**4 + L*M**2 - L + M**4
+extraFactor == E: True ; extraFactorMirror == M^4 E(1/M, L): True ; == L^2 E(M, 1/L): True
+twBound(1,5): reverse(L) / P(1/M, L) = -M**48 ; gcd(E^vee, reverse) = 1 ; gcd(E, bound) = 1
+twBound(-1,6): reverse(L) / P(1/M, L) = -M**54 ; gcd(E^vee, reverse) = 1 ; gcd(E, bound) = 1
+twBound(2,-3): reverse(L) / P(1/M, L) = -M**38 ; gcd(E^vee, reverse) = 1 ; gcd(E, bound) = 1
+twBound(0,6): reverse(L) / P(1/M, L) = -M**48 ; gcd(E^vee, reverse) = 1 ; gcd(E, bound) = 1
+twBound(-2,-1): reverse(L) / P(1/M, L) = -M**20 ; gcd(E^vee, reverse) = 1 ; gcd(E, bound) = 1
+twBound(3,0): reverse(L) / P(1/M, L) = -M**24 ; gcd(E^vee, reverse) = 1 ; gcd(E, bound) = 1
+ALL twist polynomials agree: True

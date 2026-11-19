@@ -1,0 +1,14 @@
+points [852650158, 516455373]
+s0^3 J(2)/[2] matches: ['q^-1+q^-3-q^-4']
+fig8 J(2)/[2] matches: ['fig8 q^2-q+1-q^-1+q^-2']
+s0^3 J(2)/[2] matches: ['q^-1+q^-3-q^-4']
+fig8 J(2)/[2] matches: ['fig8 q^2-q+1-q^-1+q^-2']
+torus 2 3 comp 1 J_Lean(3)==Phi_{T+}(3): True  ==Phi_{T-}(3): False
+torus 2 3 comp 1 J_Lean(3)==Phi_{T+}(3): True  ==Phi_{T-}(3): False
+torus 2 5 comp 1 J_Lean(3)==Phi_{T+}(3): True  ==Phi_{T-}(3): False
+torus 2 5 comp 1 J_Lean(3)==Phi_{T+}(3): True  ==Phi_{T-}(3): False
+torus 3 4 comp 1 J_Lean(3)==Phi_{T+}(3): True  ==Phi_{T-}(3): False
+torus 3 4 comp 1 J_Lean(3)==Phi_{T+}(3): True  ==Phi_{T-}(3): False
+torus 3 5 comp 1 J_Lean(3)==Phi_{T+}(3): True  ==Phi_{T-}(3): False
+torus 3 5 comp 1 J_Lean(3)==Phi_{T+}(3): True  ==Phi_{T-}(3): False
+invWord dump == my inverse; pair word == tw word at l=0, sigma=true; all letters on strands

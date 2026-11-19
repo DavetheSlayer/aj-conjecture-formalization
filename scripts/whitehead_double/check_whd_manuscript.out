@@ -1,0 +1,77 @@
+== 0. sanity of the tools
+PASS  Burau minor of the trefoil = t^2 - t + 1 up to a unit
+PASS  Burau minor of the figure-eight = t^2 - 3t + 1 up to a unit
+PASS  Zheng's formula gives 1 for the double of the unknot, N <= 6
+PASS  Zheng's (4.1) at colour 3 is symmetric in (p, q)
+== 1. components, writhe
+PASS  (2,3): 7 strands, 24 crossings, one component, writhe 2(r-1)s-2   writhe 4
+PASS  (2,5): 11 strands, 44 crossings, one component, writhe 2(r-1)s-2   writhe 8
+PASS  (2,7): 15 strands, 64 crossings, one component, writhe 2(r-1)s-2   writhe 12
+PASS  (3,4): 17 strands, 106 crossings, one component, writhe 2(r-1)s-2   writhe 14
+PASS  (3,5): 21 strands, 138 crossings, one component, writhe 2(r-1)s-2   writhe 18
+PASS  (4,5): 31 strands, 304 crossings, one component, writhe 2(r-1)s-2   writhe 28
+PASS  source manuscript braid: 7 strands, 24 crossings, one component, writhe 4
+PASS  Lean word (2,3) is NOT letter-for-letter the source manuscript braid (two presentations)
+PASS  family word k=1,2 equals pair word (2,3), (2,5)
+== 2. Alexander polynomial trivial (untwisted double)
+PASS  (2,3): minor = +-t^k at 40 rational points   (sign, k) = {(1, 5)}
+PASS  (2,5): minor = +-t^k at 40 rational points   (sign, k) = {(1, 9)}
+PASS  (2,7): minor = +-t^k at 40 rational points   (sign, k) = {(1, 13)}
+PASS  (3,4): minor = +-t^k at 40 rational points   (sign, k) = {(1, 15)}
+PASS  (3,5): minor = +-t^k at 40 rational points   (sign, k) = {(1, 19)}
+PASS  (4,5): minor = +-t^k at 40 rational points   (sign, k) = {(1, 29)}
+PASS  source manuscript braid: minor = +-t^k at 40 rational points   (sign, k) = {(1, 5)}
+PASS  control: companion braid T(2,3) has a NONtrivial Alexander polynomial   values at 2,3,5: ['6', '21', '105']
+PASS  control: companion braid T(3,4) has a NONtrivial Alexander polynomial   values at 2,3,5: ['156', '4599', '315525']
+== 3. Lean closed formula F_N  vs  Zheng's printed formula, N = 1..6, exact at 3 points
+PASS  (2,3): Lean F_N = Zheng WD(T(2,3), 0) with t_Zheng = q = T^4
+PASS      control must differ already at N=2: everything mirrored (t_Z = 1/q)
+PASS      control must differ already at N=2: clasp alone mirrored
+PASS      control must differ already at N=2: companion alone mirrored
+PASS      control must differ already at N=2: one twist, r=+1
+PASS      control must differ already at N=2: one twist, r=-1
+PASS  (2,5): Lean F_N = Zheng WD(T(2,5), 0) with t_Zheng = q = T^4
+PASS      control must differ already at N=2: everything mirrored (t_Z = 1/q)
+PASS      control must differ already at N=2: clasp alone mirrored
+PASS      control must differ already at N=2: companion alone mirrored
+PASS      control must differ already at N=2: one twist, r=+1
+PASS      control must differ already at N=2: one twist, r=-1
+PASS  (2,7): Lean F_N = Zheng WD(T(2,7), 0) with t_Zheng = q = T^4
+PASS      control must differ already at N=2: everything mirrored (t_Z = 1/q)
+PASS      control must differ already at N=2: clasp alone mirrored
+PASS      control must differ already at N=2: companion alone mirrored
+PASS      control must differ already at N=2: one twist, r=+1
+PASS      control must differ already at N=2: one twist, r=-1
+PASS  (3,4): Lean F_N = Zheng WD(T(3,4), 0) with t_Zheng = q = T^4
+PASS      control must differ already at N=2: everything mirrored (t_Z = 1/q)
+PASS      control must differ already at N=2: clasp alone mirrored
+PASS      control must differ already at N=2: companion alone mirrored
+PASS      control must differ already at N=2: one twist, r=+1
+PASS      control must differ already at N=2: one twist, r=-1
+PASS  (3,5): Lean F_N = Zheng WD(T(3,5), 0) with t_Zheng = q = T^4
+PASS      control must differ already at N=2: everything mirrored (t_Z = 1/q)
+PASS      control must differ already at N=2: clasp alone mirrored
+PASS      control must differ already at N=2: companion alone mirrored
+PASS      control must differ already at N=2: one twist, r=+1
+PASS      control must differ already at N=2: one twist, r=-1
+PASS  (4,5): Lean F_N = Zheng WD(T(4,5), 0) with t_Zheng = q = T^4
+PASS      control must differ already at N=2: everything mirrored (t_Z = 1/q)
+PASS      control must differ already at N=2: clasp alone mirrored
+PASS      control must differ already at N=2: companion alone mirrored
+PASS      control must differ already at N=2: one twist, r=+1
+PASS      control must differ already at N=2: one twist, r=-1
+== 4. colour 2 directly from the braid (transcribed Lean definition) vs [2] F_2 and Zheng
+PASS  Lean word (2,3): coloredJones(2) = [2] F_2 = [2] Zheng_2
+      J(2) = 1*T^-46 + -1*T^-42 + -1*T^-38 + 1*T^-26 + 1*T^-18 + 1*T^10
+PASS  source manuscript braid: coloredJones(2) = [2] F_2 = [2] Zheng_2
+PASS  source manuscript braid and Lean word (2,3) have the same colour-2 polynomial
+PASS  F_2 printed in the source manuscript equals the Lean formula at N = 2
+== 5. symbolic identity in Q(T) (needs sympy; skipped otherwise)
+PASS  (2,3): F_N - Zheng_N cancels to 0 as a rational function, N = 1..4
+PASS  (2,5): F_N - Zheng_N cancels to 0 as a rational function, N = 1..3
+PASS  (3,4): F_N - Zheng_N cancels to 0 as a rational function, N = 1..3
+PASS  (3,5): F_N - Zheng_N cancels to 0 as a rational function, N = 1..2
+PASS  control: with the clasp alone mirrored the difference is a nonzero rational function
+PASS  colour 2 of the Lean braid (2,3), as a Laurent polynomial, equals [2] * Zheng_2 exactly
+
+ALL PASS

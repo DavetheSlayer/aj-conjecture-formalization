@@ -1,0 +1,5 @@
+100 i=1,n=N/2: |b_corr|/N^2 = 0.54  |b_printed|/N^2 = 0.82  log(N)/(2pi) = 0.733
+1000 i=1,n=N/2: |b_corr|/N^2 = 0.855  |b_printed|/N^2 = 1.052  log(N)/(2pi) = 1.099
+10000 i=1,n=N/2: |b_corr|/N^2 = 1.203  |b_printed|/N^2 = 1.35  log(N)/(2pi) = 1.466
+100000 i=1,n=N/2: |b_corr|/N^2 = 1.559  |b_printed|/N^2 = 1.675  log(N)/(2pi) = 1.832
+1000000 i=1,n=N/2: |b_corr|/N^2 = 1.92  |b_printed|/N^2 = 2.015  log(N)/(2pi) = 2.199
