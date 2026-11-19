@@ -1,0 +1,909 @@
+Exact types of the theorems of the handoff index (output of #check @AJConjecture.<name>,
+Lean 4.36.0-rc2, Mathlib 2657306). Axioms: PrintAxiomsHandoff.expected.txt.
+
+@AJConjecture.aPolynomial_pair_associated : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s)
+  {A A' : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.pairWhiteheadKnot r s h)) A →
+    AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.pairWhiteheadKnot r s h)) A' →
+      Associated (AJConjecture.toComparison A) (AJConjecture.toComparison A')
+@AJConjecture.aPolynomial_pair_factors : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.pairWhiteheadKnot r s h)) A →
+    ∀ {g : Polynomial (Polynomial ℂ)},
+      Irreducible g →
+        0 < g.natDegree → (g ∣ AJConjecture.mapC A ↔ g ∣ AJConjecture.mapC (AJConjecture.famBound (r * s)))
+@AJConjecture.center_torusKnotGroup : ∀ {r s : ℕ},
+  AJConjecture.IsTorusPair r s →
+    Subgroup.center (AJConjecture.TorusKnotGroup r s) = Subgroup.zpowers (PresentedGroup.of 0 ^ r)
+AJConjecture.constSeq_minimum : (∀ (n : ℤ), AJConjecture.opApplyField (Polynomial.X - 1) AJConjecture.constSeq n = 0) ∧
+  ∀ {Q : AJConjecture.RecOp} {n₁ : ℤ},
+    (∀ (n : ℤ), n₁ ≤ n → AJConjecture.opApplyField Q AJConjecture.constSeq n = 0) →
+      ∃ β, β ≠ 0 ∧ ∃ T, Polynomial.C β * Q = AJConjecture.oreMul AJConjecture.coeffShift T (Polynomial.X - 1)
+AJConjecture.constSeq_not_selected : AJConjecture.EventuallyRational AJConjecture.constSeq ∧
+  ∀ (n : ℤ), n ≠ 0 → AJConjecture.opApplyField AJConjecture.toyRecOp AJConjecture.constSeq n ≠ 0
+AJConjecture.constSeq_oversized : (∀ (n : ℤ),
+    AJConjecture.opApplyField (AJConjecture.oreMul AJConjecture.coeffShift AJConjecture.toyRecOp (Polynomial.X - 1))
+        AJConjecture.constSeq n =
+      0) ∧
+  AJConjecture.specialize (AJConjecture.oreMul AJConjecture.coeffShift AJConjecture.toyRecOp (Polynomial.X - 1)) =
+      (Polynomial.X - Polynomial.C Polynomial.X) * (Polynomial.X + Polynomial.C (Polynomial.X - 2)) *
+        (Polynomial.X - 1) ∧
+    ¬AJConjecture.toComparison (Polynomial.X - Polynomial.C Polynomial.X) ∣
+          AJConjecture.toComparison (AJConjecture.specialize (Polynomial.X - 1)) ∧
+      ¬AJConjecture.toComparison (Polynomial.X + Polynomial.C (Polynomial.X - 2)) ∣
+          AJConjecture.toComparison (AJConjecture.specialize (Polynomial.X - 1))
+AJConjecture.det_gauge : ∀ (δ : AJConjecture.LocDilation) {r : ℕ} (B G : Matrix (Fin r) (Fin r) AJConjecture.LocField),
+  G.det ≠ 0 → (G⁻¹ * B * G.map ⇑δ.fieldShift).det = B.det * δ.fieldShift G.det / G.det
+@AJConjecture.eq_of_mulEquiv_cycCoprod : ∀ {r s r' s' : ℕ},
+  AJConjecture.IsTorusPair r s →
+    AJConjecture.IsTorusPair r' s' → ∀ (e : AJConjecture.CycCoprod r s ≃* AJConjecture.CycCoprod r' s'), r = r' ∧ s = s'
+@AJConjecture.exists_C_mul_eq_oreMul_of_tail_annihilator_of_homogeneous : ∀ {P : AJConjecture.RecOp},
+  0 < Polynomial.natDegree P →
+    (∀ {β : AJConjecture.Coeff},
+        β ≠ 0 →
+          ∀ {S R : AJConjecture.RecOp},
+            Polynomial.C β * P = AJConjecture.oreMul AJConjecture.coeffShift S R →
+              Polynomial.natDegree R = 0 ∨ Polynomial.natDegree R = Polynomial.natDegree P) →
+      ∀ {f : ℤ → RatFunc ℚ},
+        (¬∃ n₀, ∀ (n : ℤ), n₀ ≤ n → f n = 0) →
+          ∀ {n₀ : ℤ},
+            (∀ (n : ℤ), n₀ ≤ n → AJConjecture.opApplyField P f n = 0) →
+              ∀ {Q : AJConjecture.RecOp} {n₁ : ℤ},
+                (∀ (n : ℤ), n₁ ≤ n → AJConjecture.opApplyField Q f n = 0) →
+                  ∃ β, β ≠ 0 ∧ ∃ T, Polynomial.C β * Q = AJConjecture.oreMul AJConjecture.coeffShift T P
+@AJConjecture.exists_C_mul_eq_oreMul_of_tail_annihilator_of_rational : ∀ {P : AJConjecture.RecOp},
+  0 < Polynomial.natDegree P →
+    (∀ {β : AJConjecture.Coeff},
+        β ≠ 0 →
+          ∀ {S R : AJConjecture.RecOp},
+            Polynomial.C β * P = AJConjecture.oreMul AJConjecture.coeffShift S R →
+              Polynomial.natDegree R = 0 ∨ Polynomial.natDegree R = Polynomial.natDegree P) →
+      ∀ {f : ℤ → RatFunc ℚ},
+        ¬AJConjecture.EventuallyRational f →
+          (AJConjecture.EventuallyRational fun n => AJConjecture.opApplyField P f n) →
+            ∀ {Q : AJConjecture.RecOp} {n₁ : ℤ},
+              (∀ (n : ℤ), n₁ ≤ n → AJConjecture.opApplyField Q f n = 0) →
+                ∃ β, β ≠ 0 ∧ ∃ T, Polynomial.C β * Q = AJConjecture.oreMul AJConjecture.coeffShift T P
+@AJConjecture.exists_C_mul_eq_oreMul_toyRecOp : ∀ {Q : AJConjecture.RecOp} {n₁ : ℤ},
+  (∀ (n : ℤ), n₁ ≤ n → AJConjecture.opApplyField Q AJConjecture.toySeq n = 0) →
+    ∃ β, β ≠ 0 ∧ ∃ T, Polynomial.C β * Q = AJConjecture.oreMul AJConjecture.coeffShift T AJConjecture.toyRecOp
+AJConjecture.exists_hasNormalizedIndex_int_of_quotient : ∀ (δ : AJConjecture.LocDilation) {z₀ : ℂ},
+  z₀ ≠ 0 →
+    ∀ {d r : ℕ} {A : Matrix (Fin d) (Fin d) AJConjecture.LocField},
+      AJConjecture.IsJointRegular z₀ A →
+        ∀ {Q : Matrix (Fin r) (Fin d) AJConjecture.LocField},
+          Function.Surjective ⇑Q.mulVecLin →
+            ∀ {B : Matrix (Fin r) (Fin r) AJConjecture.LocField},
+              B * Q.map ⇑δ.fieldShift = Q * A →
+                ∃ D₀ D₁,
+                  AJConjecture.HasHJet B.det D₀ D₁ ∧
+                    AJConjecture.IsUnitAt z₀ D₀ ∧ ∃ n, AJConjecture.HasNormalizedIndex δ.c z₀ D₀ D₁ ↑n
+AJConjecture.exists_int_hasNormalizedIndex_locLogJet : ∀ (δ : AJConjecture.LocDilation) {P S R : AJConjecture.LocOp}
+  {β : AJConjecture.LocPoly},
+  AJConjecture.locJet0 β ≠ 0 →
+    Polynomial.C β * P = AJConjecture.oreMul δ.shiftHom S R →
+      ∀ {z₀ : ℂ},
+        z₀ ≠ 0 →
+          (AJConjecture.opJet0 P).natDegree = Polynomial.natDegree P →
+            Polynomial.eval z₀ (AJConjecture.opJet0 P).leadingCoeff ≠ 0 →
+              Polynomial.eval z₀ ((AJConjecture.opJet0 P).coeff 0) ≠ 0 →
+                ∃ n,
+                  AJConjecture.HasNormalizedIndex δ.c z₀
+                    ((algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.locLogJetDen R))
+                    ((algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.locLogJetNum R)) ↑n
+AJConjecture.famB_eq_twistPoly : ∀ (m : ℕ), 1 ≤ m → AJConjecture.famB m = AJConjecture.twistPoly m
+AJConjecture.geo_theoremG : (∀ (k : ℕ) (hk : 1 ≤ k) (N B : ℕ),
+    1 ≤ N →
+      N ≤ B →
+        AJConjecture.laurentToField (AJConjecture.coloredJones (AJConjecture.whiteheadTorusKnot k hk) ↑N) =
+          RatFunc.X ^ (4 * ↑N ^ 2 - 2 * ↑N - 2) *
+            (PowerSeries.coeff (N - 1))
+              (∑ n ∈ Finset.range B,
+                PowerSeries.C (AJConjecture.torusOddColor (2 * k + 1) n) * AJConjecture.geoClaspGen N n)) ∧
+  (∀ (x : ℂ),
+      x ≠ 0 →
+        x ^ 2 ≠ 1 →
+          Set.BijOn (AJConjecture.geoChannelL x) {y | AJConjecture.geoChannelT x y = 0}
+            {L | L ^ 2 - (x ^ 2 - 4 * x + 1) * L + x ^ 2 = 0}) ∧
+    (∀ (a : ℕ) {x y : ℂ},
+        x ≠ 0 →
+          x ^ 2 ≠ 1 →
+            y ≠ 0 ∧ y ≠ 1 ∧ y ≠ x ∧ y ≠ -x ∧ y ≠ -1 →
+              (AJConjecture.geoRatioQ a 1 x (-1) (-y) = 1 ∧ AJConjecture.geoRatioZ 1 x (-1) (-y) = 1 ↔
+                  AJConjecture.geoChannelT x y = 0) ∧
+                AJConjecture.geoRatioX 1 x (-1) (-y) = AJConjecture.geoChannelL x y) ∧
+      Set.BijOn AJConjecture.geoToWeierstrass AJConjecture.GeoSmoothTorusLocus AJConjecture.GeoWeierstrassOpen ∧
+        AJConjecture.geoWeierstrass.j = 1728 ∧
+          (∃ e,
+              e ((algebraMap AJConjecture.GeoCoordE AJConjecture.GeoFunFieldE) AJConjecture.geoMer) *
+                    -((algebraMap AJConjecture.geoWeierstrass.toAffine.CoordinateRing
+                            AJConjecture.geoWeierstrass.toAffine.FunctionField)
+                          AJConjecture.geoWX *
+                        (1 +
+                          (algebraMap AJConjecture.geoWeierstrass.toAffine.CoordinateRing
+                              AJConjecture.geoWeierstrass.toAffine.FunctionField)
+                            AJConjecture.geoWX)) =
+                  (algebraMap AJConjecture.geoWeierstrass.toAffine.CoordinateRing
+                      AJConjecture.geoWeierstrass.toAffine.FunctionField)
+                    AJConjecture.geoWY ∧
+                e ((algebraMap AJConjecture.GeoCoordE AJConjecture.GeoFunFieldE) AJConjecture.geoLong) *
+                      (1 +
+                          (algebraMap AJConjecture.geoWeierstrass.toAffine.CoordinateRing
+                              AJConjecture.geoWeierstrass.toAffine.FunctionField)
+                            AJConjecture.geoWX) ^
+                        2 =
+                    (1 -
+                        (algebraMap AJConjecture.geoWeierstrass.toAffine.CoordinateRing
+                            AJConjecture.geoWeierstrass.toAffine.FunctionField)
+                          AJConjecture.geoWX) ^
+                      2 ∧
+                  e.symm
+                      ((algebraMap AJConjecture.geoWeierstrass.toAffine.CoordinateRing
+                          AJConjecture.geoWeierstrass.toAffine.FunctionField)
+                        AJConjecture.geoWX) =
+                    -(((algebraMap AJConjecture.GeoCoordE AJConjecture.GeoFunFieldE) AJConjecture.geoMer ^ 2 +
+                          (algebraMap AJConjecture.GeoCoordE AJConjecture.GeoFunFieldE) AJConjecture.geoLong) /
+                        ((algebraMap AJConjecture.GeoCoordE AJConjecture.GeoFunFieldE) AJConjecture.geoMer ^ 2 *
+                          ((algebraMap AJConjecture.GeoCoordE AJConjecture.GeoFunFieldE) AJConjecture.geoMer ^ 2 -
+                            1)))) ∧
+            Module.finrank (↥ℚ⟮AJConjecture.geoRfun⟯) AJConjecture.GeoFunFieldE = 2 ∧
+              (∃ e,
+                  ↑(e ((algebraMap AJConjecture.GeoCoordE AJConjecture.GeoLaurentE) AJConjecture.geoMer)) =
+                      AJConjecture.geoNuM ∧
+                    ↑(e ((algebraMap AJConjecture.GeoCoordE AJConjecture.GeoLaurentE) AJConjecture.geoLong)) =
+                      AJConjecture.geoNuL) ∧
+                Subalgebra.restrictScalars ℚ (integralClosure (↥AJConjecture.geoLaurentImage) AJConjecture.GeoKW) =
+                    AJConjecture.geoPuncturedImage ∧
+                  CompactSpace AJConjecture.GeoEllipticPoints ∧
+                    (∀ (r : OnePoint ℂ),
+                        (AJConjecture.geoCoverR ⁻¹' {r}).ncard =
+                          if r = ↑0 ∨ r = ↑1 ∨ r = ↑(-1) ∨ r = OnePoint.infty then 1 else 2) ∧
+                      (∀ {γ : ℝ → ℂ × ℂ} {γ' : ℂ × ℂ} {t : ℝ},
+                          HasDerivAt γ γ' t →
+                            (∀ᶠ (s : ℝ) in nhds t, γ s ∈ AJConjecture.GeoSmoothTorusLocus) →
+                              HasDerivAt (fun s => AJConjecture.geoRegPrimitive (AJConjecture.geoCurveR (γ s)))
+                                (AJConjecture.geoEta (γ t).1 (γ t).2 γ'.1 γ'.2) t) ∧
+                        (AJConjecture.geoRegPrimitive 0 = 0 ∧
+                            AJConjecture.geoRegPrimitive 1 = 0 ∧
+                              AJConjecture.geoRegPrimitive (-1) = 0 ∧
+                                AJConjecture.geoRegPrimitive Complex.I = 2 * AJConjecture.catalanConstant ∧
+                                  AJConjecture.geoRegPrimitive (-Complex.I) = -(2 * AJConjecture.catalanConstant)) ∧
+                          (Continuous (AJConjecture.geoRegPrimitiveP1 ∘ AJConjecture.geoCoverR) ∧
+                              (∀ q ∈ AJConjecture.GeoPuncturedModel,
+                                  q.1 ^ 2 ≠ -1 →
+                                    AJConjecture.geoNormMap q ∈ AJConjecture.GeoSmoothTorusLocus ∧
+                                      AJConjecture.geoRegPrimitive
+                                          (AJConjecture.geoCurveR (AJConjecture.geoNormMap q)) =
+                                        AJConjecture.geoRegPrimitiveP1 ↑(-q.1)) ∧
+                                (∀ (P : AJConjecture.GeoEllipticPoints),
+                                    AJConjecture.geoCoverR P = ↑0 ∨
+                                        AJConjecture.geoCoverR P = ↑1 ∨
+                                          AJConjecture.geoCoverR P = ↑(-1) ∨ AJConjecture.geoCoverR P = OnePoint.infty →
+                                      AJConjecture.geoRegPrimitiveP1 (AJConjecture.geoCoverR P) = 0) ∧
+                                  (∀ (P : AJConjecture.GeoEllipticPoints),
+                                      AJConjecture.geoCoverR P = ↑Complex.I →
+                                        AJConjecture.geoRegPrimitiveP1 (AJConjecture.geoCoverR P) =
+                                          2 * AJConjecture.catalanConstant) ∧
+                                    ∀ (P : AJConjecture.GeoEllipticPoints),
+                                      AJConjecture.geoCoverR P = ↑(-Complex.I) →
+                                        AJConjecture.geoRegPrimitiveP1 (AJConjecture.geoCoverR P) =
+                                          -(2 * AJConjecture.catalanConstant)) ∧
+                            (∀ (ε : ℂ),
+                                ε = 1 ∨ ε = -1 →
+                                  ¬∃ c,
+                                      Filter.Tendsto (fun p => AJConjecture.geoRegPrimitive (AJConjecture.geoCurveR p))
+                                        (nhdsWithin (ε, -1) AJConjecture.GeoSmoothTorusLocus) (nhds c)) ∧
+                              AJConjecture.geoSymbol (Units.mk0 AJConjecture.geoMerBar AJConjecture.geoMerBar_ne_zero)
+                                      (Units.mk0 AJConjecture.geoLongBar AJConjecture.geoLongBar_ne_zero) ⊗ₜ[ℤ]
+                                    1 =
+                                  0 ∧
+                                (∀ (a : ℕ),
+                                    AJConjecture.GeoChannelActionBranch (AJConjecture.geoChannelAction a)
+                                      AJConjecture.geoChannelActionDomain) ∧
+                                  (∀ (a : ℕ),
+                                      ∃ ε > 0,
+                                        ∀ r ∈ Metric.ball 2 ε,
+                                          (Complex.log (-AJConjecture.geoX r) + ↑Real.pi * Complex.I,
+                                                Complex.log (1 / r) + ↑Real.pi * Complex.I) ∈
+                                              AJConjecture.geoChannelActionDomain ∧
+                                            (fderiv ℂ (AJConjecture.geoChannelAction a)
+                                                  (Complex.log (-AJConjecture.geoX r) + ↑Real.pi * Complex.I,
+                                                    Complex.log (1 / r) + ↑Real.pi * Complex.I))
+                                                (0, 1) =
+                                              0) ∧
+                                    (∀ {S : ℂ × ℂ → ℂ} {Ω : Set (ℂ × ℂ)},
+                                        AJConjecture.GeoChannelActionBranch S Ω →
+                                          ∀ {ℓ : ℂ → ℂ × ℂ} {r : ℂ},
+                                            r ≠ 0 ∧ r ≠ 1 ∧ r ≠ -1 ∧ r ^ 2 ≠ -1 →
+                                              DifferentiableAt ℂ ℓ r →
+                                                ℓ r ∈ Ω →
+                                                  Complex.exp (ℓ r).1 = AJConjecture.geoX r ∧
+                                                      Complex.exp (ℓ r).2 = -1 / r →
+                                                    (fderiv ℂ S (ℓ r)) (0, 1) = 0 →
+                                                      HasDerivAt (fun ρ => S (ℓ ρ))
+                                                          ((fderiv ℂ S (ℓ r)) (1, 0) * deriv (fun ρ => (ℓ ρ).1) r) r ∧
+                                                        Complex.exp ((fderiv ℂ S (ℓ r)) (1, 0)) = AJConjecture.geoL r) ∧
+                                      (∀ {Ω : Set ℂ},
+                                          IsOpen Ω →
+                                            IsPreconnected Ω →
+                                              (∀ r ∈ Ω, r ≠ 0 ∧ r ≠ 1 ∧ r ≠ -1) →
+                                                ∀ {lx lL s : ℂ → ℂ},
+                                                  DifferentiableOn ℂ lx Ω →
+                                                    DifferentiableOn ℂ lL Ω →
+                                                      (∀ r ∈ Ω, Complex.exp (lx r) = AJConjecture.geoX r) →
+                                                        (∀ r ∈ Ω, Complex.exp (lL r) = AJConjecture.geoL r) →
+                                                          (∀ r ∈ Ω, HasDerivAt s (lL r * deriv lx r) r) →
+                                                            (∀ {γ : ℝ → ℂ × ℂ} {γ' : ℂ × ℂ} {t : ℝ},
+                                                                HasDerivAt γ γ' t →
+                                                                  (∀ᶠ (τ : ℝ) in nhds t,
+                                                                      γ τ ∈ AJConjecture.GeoSmoothTorusLocus ∧
+                                                                        AJConjecture.geoCurveR (γ τ) ∈ Ω) →
+                                                                    HasDerivAt
+                                                                      (fun τ =>
+                                                                        (s (AJConjecture.geoCurveR (γ τ))).im -
+                                                                          (lL (AJConjecture.geoCurveR (γ τ))).im *
+                                                                            (lx (AJConjecture.geoCurveR (γ τ))).re)
+                                                                      (-2 *
+                                                                        AJConjecture.geoEta (γ t).1 (γ t).2 γ'.1 γ'.2)
+                                                                      t) ∧
+                                                              (∃ c,
+                                                                  ∀ r ∈ Ω,
+                                                                    (s r).im - (lL r).im * (lx r).re +
+                                                                        2 * AJConjecture.geoRegPrimitive r =
+                                                                      c) ∧
+                                                                (1 / 2 ∈ Ω →
+                                                                  (s (1 / 2)).im - (lL (1 / 2)).im * (lx (1 / 2)).re =
+                                                                      0 →
+                                                                    ∀ r ∈ Ω,
+                                                                      (s r).im - (lL r).im * (lx r).re =
+                                                                        -2 * AJConjecture.geoRegPrimitive r)) ∧
+                                        AJConjecture.logMahlerMeasure₂ AJConjecture.extraFactorℂ =
+                                            4 * AJConjecture.catalanConstant / Real.pi ∧
+                                          (∀ (z : Fin 4 → ℂ),
+                                              AJConjecture.WhiteheadGluing z →
+                                                (AJConjecture.whiteheadPeripheral z).1 = 1 →
+                                                  (AJConjecture.whiteheadPeripheral z).2.1 = -1 →
+                                                    ∃ w, w ≠ 0 ∧ w ≠ 1 ∧ w ≠ -1 ∧ z = AJConjecture.geoSliceShapes w) ∧
+                                            (∀ (w u : ℂ) (hw0 : w ≠ 0) (hw1 : w ≠ 1) (hwm1 : w ≠ -1)
+                                                (hu : u ^ 2 = (1 + w) / (w * (1 - w))),
+                                                AJConjecture.GeoAxisCompleted
+                                                    (AJConjecture.geoPatternShapeRep w u hw0 hw1 hwm1 hu) ∧
+                                                  AJConjecture.GeoPatternEigenPair
+                                                      (AJConjecture.geoPatternShapeRep w u hw0 hw1 hwm1 hu)
+                                                      (u, (w ^ 2)⁻¹) ∧
+                                                    AJConjecture.GeoPatternEigenPair
+                                                      (AJConjecture.geoPatternShapeRep w u hw0 hw1 hwm1 hu)
+                                                      (u⁻¹, w ^ 2)) ∧
+                                              {p |
+                                                    ∃ w u,
+                                                      ∃ (hw0 : w ≠ 0) (hw1 : w ≠ 1) (hwm1 : w ≠ -1) (hu :
+                                                        u ^ 2 = (1 + w) / (w * (1 - w))),
+                                                        AJConjecture.GeoPatternEigenPair
+                                                          (AJConjecture.geoPatternShapeRep w u hw0 hw1 hwm1 hu) p} =
+                                                  {p |
+                                                    AJConjecture.evalPoint AJConjecture.extraFactorℂ p = 0 ∧ p.1 ≠ 0} ∧
+                                                (∀ (r : ℂ),
+                                                    r ≠ -1 →
+                                                      r ≠ 1 →
+                                                        ∑ j,
+                                                            AJConjecture.blochWigner
+                                                              (AJConjecture.geoSliceShapes ((1 - r) / (1 + r)) j) =
+                                                          -2 * AJConjecture.geoRegPrimitive r) ∧
+                                                  ∑ j,
+                                                        AJConjecture.blochWigner
+                                                          (AJConjecture.geoSliceShapes Complex.I j) =
+                                                      4 * AJConjecture.catalanConstant ∧
+                                                    ∑ j,
+                                                          AJConjecture.blochWigner
+                                                            (AJConjecture.geoSliceShapes Complex.I j)⁻¹ =
+                                                        -(4 * AJConjecture.catalanConstant) ∧
+                                                      (∀ (z : Fin 4 → ℂ),
+                                                          AJConjecture.WhiteheadGluing z →
+                                                            AJConjecture.WhiteheadComplete z →
+                                                              |∑ j, AJConjecture.blochWigner (z j)| =
+                                                                4 * AJConjecture.catalanConstant) ∧
+                                                        AJConjecture.geoHypMeasure AJConjecture.geoIdealTetI =
+                                                            ENNReal.ofReal AJConjecture.catalanConstant ∧
+                                                          (∀ (k : ℕ) (hk : 1 ≤ k) (N : ℕ),
+                                                              1 ≤ N →
+                                                                AJConjecture.laurentToField
+                                                                    (AJConjecture.coloredJones
+                                                                      (AJConjecture.whiteheadTorusKnot k hk) ↑N) =
+                                                                  AJConjecture.quantumInt ↑N *
+                                                                    AJConjecture.torusReducedFormula (2 * k + 1) N) ∧
+                                                            (∀ (k N : ℕ),
+                                                                1 ≤ k →
+                                                                  1 ≤ N →
+                                                                    ∃ P,
+                                                                      AJConjecture.laurentToField P =
+                                                                        AJConjecture.torusReducedFormula (2 * k + 1)
+                                                                          N) ∧
+                                                              (∀ (a N : ℕ) (P : LaurentPolynomial ℤ),
+                                                                  1 ≤ N →
+                                                                    AJConjecture.laurentToField P =
+                                                                        AJConjecture.torusReducedFormula a N →
+                                                                      (LaurentPolynomial.eval₂ (Int.castRingHom ℂ)
+                                                                            (Units.mk0
+                                                                              (Complex.exp
+                                                                                (↑Real.pi * Complex.I / (2 * ↑N)))
+                                                                              ⋯))
+                                                                          P =
+                                                                        AJConjecture.geoZhengDiagonal a N) ∧
+                                                                (∀ (a N n : ℕ),
+                                                                    1 ≤ N →
+                                                                      AJConjecture.geoPhasePow N n (-(8 * ↑a)) =
+                                                                        AJConjecture.geoRootQ N ^
+                                                                          (-(2 * ↑a * ↑n * (↑n + 1)))) ∧
+                                                                  (∀ (δ : ℝ),
+                                                                      1 / 2 < δ →
+                                                                        δ < 1 →
+                                                                          ∃ C N₀,
+                                                                            ∀ (N n i : ℕ),
+                                                                              N₀ ≤ N →
+                                                                                n + i < N →
+                                                                                  AJConjecture.GeoInWindow N (↑N ^ δ) n
+                                                                                      i →
+                                                                                    have q := AJConjecture.geoRootQ N;
+                                                                                    have zi :=
+                                                                                      (1 - q ^ (i + 1)) /
+                                                                                        (1 - q ^ (n + i + 1));
+                                                                                    have zj :=
+                                                                                      (1 - q ^ (N - n - i)) /
+                                                                                        (1 - q ^ (N - i));
+                                                                                    ‖q ^ n + 1‖ ≤ C * ↑N ^ (δ - 1) ∧
+                                                                                      ‖q ^ i - Complex.I‖ ≤
+                                                                                          C * ↑N ^ (δ - 1) ∧
+                                                                                        ‖⋯‖ ≤ C * ↑N ^ (δ - 1) ∧
+                                                                                          ‖zi + Complex.I‖ ≤
+                                                                                              C * ↑N ^ (δ - 1) ∧
+                                                                                            ‖zj + Complex.I‖ ≤
+                                                                                                C * ↑N ^ (δ - 1) ∧
+                                                                                              ⋯) ∧
+                                                                    (∀ (a : ℕ),
+                                                                        AJConjecture.geoRatioQ a 1 1 (-1) (-Complex.I) =
+                                                                            1 ∧
+                                                                          AJConjecture.geoRatioZ 1 1 (-1) (-Complex.I) =
+                                                                              1 ∧
+                                                                            AJConjecture.geoRatioX 1 1 (-1)
+                                                                                  (-Complex.I) =
+                                                                                -1 ∧
+                                                                              AJConjecture.geoChannelT 1 Complex.I = 0 ∧
+                                                                                -2 *
+                                                                                    AJConjecture.geoRegPrimitive
+                                                                                      (-Complex.I) =
+                                                                                  4 * AJConjecture.catalanConstant) ∧
+                                                                      ∀ (a : ℕ),
+                                                                        3 ≤ a →
+                                                                          Odd a →
+                                                                            AJConjecture.ZhengEstimates a →
+                                                                              (∀ (N : ℕ),
+                                                                                  1 ≤ N →
+                                                                                    AJConjecture.geoZhengLeading a N ≠
+                                                                                      0) ∧
+                                                                                Filter.Tendsto
+                                                                                  (fun N =>
+                                                                                    AJConjecture.geoZhengDiagonal a N /
+                                                                                      AJConjecture.geoZhengLeading a N)
+                                                                                  Filter.atTop (nhds 1)
+AJConjecture.hasNormalizedIndex_gauge_of_isJointRegular : ∀ (δ : AJConjecture.LocDilation) {z₀ : ℂ},
+  z₀ ≠ 0 →
+    ∀ {r : ℕ} {B G : Matrix (Fin r) (Fin r) AJConjecture.LocField},
+      AJConjecture.IsJointRegular z₀ G →
+        ∀ {D₀ D₁ : RatFunc ℂ},
+          AJConjecture.HasHJet B.det D₀ D₁ →
+            D₀ ≠ 0 →
+              ∀ {ι : ℂ},
+                AJConjecture.HasNormalizedIndex δ.c z₀ D₀ D₁ ι →
+                  ∃ D₁',
+                    AJConjecture.HasHJet (G⁻¹ * B * G.map ⇑δ.fieldShift).det D₀ D₁' ∧
+                      AJConjecture.HasNormalizedIndex δ.c z₀ D₀ D₁' ι
+AJConjecture.hasNormalizedIndex_locNodeIndex : ∀ (δ : AJConjecture.LocDilation) {P S R : AJConjecture.LocOp}
+  {β : AJConjecture.LocPoly},
+  AJConjecture.locJet0 β ≠ 0 →
+    Polynomial.C β * P = AJConjecture.oreMul δ.shiftHom S R →
+      ∀ {ι : Type u_1} [inst : Fintype ι] [inst_1 : DecidableEq ι] {B : ι → Polynomial (Polynomial ℂ)},
+        AJConjecture.LocResidualBlocks P B →
+          ∀ {κ₁ κ₂ : Polynomial ℂ} {g h : ι} {z₀ lam : ℂ},
+            AJConjecture.LocAllowedNode P B κ₁ κ₂ g h z₀ lam →
+              AJConjecture.LocBlockDvd (B g) (AJConjecture.opJet0 R) →
+                AJConjecture.LocBlockDvd (B h) (AJConjecture.opJet0 S) →
+                  AJConjecture.HasNormalizedIndex δ.c z₀
+                    ((algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.locLogJetDen R))
+                    ((algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.locLogJetNum R))
+                    (AJConjecture.locNodeIndex δ.c z₀ lam (AJConjecture.opJet1 P) (B g) (B h)
+                      (AJConjecture.locCofactor B g h) κ₁ κ₂)
+AJConjecture.hasNormalizedIndex_mul_coboundary : ∀ (δ : AJConjecture.LocDilation) {z₀ : ℂ},
+  z₀ ≠ 0 →
+    ∀ {D g : AJConjecture.LocField} {D₀ D₁ : RatFunc ℂ},
+      AJConjecture.HasHJet D D₀ D₁ →
+        D₀ ≠ 0 →
+          ∀ {ι : ℂ},
+            AJConjecture.HasNormalizedIndex δ.c z₀ D₀ D₁ ι →
+              ∀ {k : ℤ} {g₀ g₁ : RatFunc ℂ},
+                AJConjecture.HasHJet
+                    ((algebraMap AJConjecture.LocPoly AJConjecture.LocField) AJConjecture.locH ^ (-k) * g) g₀ g₁ →
+                  g₀ ≠ 0 →
+                    ∀ {m : ℤ},
+                      AJConjecture.HasOrderAt g₀ z₀ m →
+                        ∃ D₁',
+                          AJConjecture.HasHJet (D * δ.fieldShift g / g) D₀ D₁' ∧
+                            AJConjecture.HasNormalizedIndex δ.c z₀ D₀ D₁' (ι + ↑m)
+AJConjecture.hasNormalizedIndex_mul_inv_coboundary : ∀ (δ : AJConjecture.LocDilation) {z₀ : ℂ},
+  z₀ ≠ 0 →
+    ∀ {D g : AJConjecture.LocField} {D₀ D₁ : RatFunc ℂ},
+      AJConjecture.HasHJet D D₀ D₁ →
+        D₀ ≠ 0 →
+          ∀ {ι : ℂ},
+            AJConjecture.HasNormalizedIndex δ.c z₀ D₀ D₁ ι →
+              ∀ {k : ℤ} {g₀ g₁ : RatFunc ℂ},
+                AJConjecture.HasHJet
+                    ((algebraMap AJConjecture.LocPoly AJConjecture.LocField) AJConjecture.locH ^ (-k) * g) g₀ g₁ →
+                  g₀ ≠ 0 →
+                    ∀ {m : ℤ},
+                      AJConjecture.HasOrderAt g₀ z₀ m →
+                        ∃ D₁',
+                          AJConjecture.HasHJet (D * g / δ.fieldShift g) D₀ D₁' ∧
+                            AJConjecture.HasNormalizedIndex δ.c z₀ D₀ D₁' (ι - ↑m)
+AJConjecture.hasNormalizedIndex_powerSubst : ∀ (δ : AJConjecture.LocDilation) {a : ℂ} (ha : a ≠ 0) {k : ℕ} (hk : 0 < k)
+  {z₀ : ℂ},
+  z₀ ≠ 0 →
+    ∀ {A B : AJConjecture.LocPoly},
+      AJConjecture.locJet0 B ≠ 0 →
+        ∀ {D₀ D₁ : RatFunc ℂ},
+          AJConjecture.HasHJet
+              ((algebraMap AJConjecture.LocPoly AJConjecture.LocField) A /
+                (algebraMap AJConjecture.LocPoly AJConjecture.LocField) B)
+              D₀ D₁ →
+            ∀ {ι : ℂ},
+              AJConjecture.HasNormalizedIndex (AJConjecture.locDilationPow δ k hk).c (a * z₀ ^ k) D₀ D₁ ι →
+                AJConjecture.HasHJet
+                    ((algebraMap AJConjecture.LocPoly AJConjecture.LocField) ((AJConjecture.locPowerSubst a k) A) /
+                      (algebraMap AJConjecture.LocPoly AJConjecture.LocField) ((AJConjecture.locPowerSubst a k) B))
+                    ((AJConjecture.ratPowerSubst a k ha hk) D₀) ((AJConjecture.ratPowerSubst a k ha hk) D₁) ∧
+                  AJConjecture.HasNormalizedIndex δ.c z₀ ((AJConjecture.ratPowerSubst a k ha hk) D₀)
+                    ((AJConjecture.ratPowerSubst a k ha hk) D₁) ι
+AJConjecture.hasNormalizedIndex_rescale : ∀ (δ : AJConjecture.LocDilation) {a : ℂ} (ha : a ≠ 0)
+  {A B : AJConjecture.LocPoly},
+  AJConjecture.locJet0 B ≠ 0 →
+    ∀ {D₀ D₁ : RatFunc ℂ},
+      AJConjecture.HasHJet
+          ((algebraMap AJConjecture.LocPoly AJConjecture.LocField) A /
+            (algebraMap AJConjecture.LocPoly AJConjecture.LocField) B)
+          D₀ D₁ →
+        ∀ {z₀ ι : ℂ},
+          AJConjecture.HasHJet
+              ((algebraMap AJConjecture.LocPoly AJConjecture.LocField) ((AJConjecture.locRescale a) A) /
+                (algebraMap AJConjecture.LocPoly AJConjecture.LocField) ((AJConjecture.locRescale a) B))
+              D₀ (RatFunc.C a * D₁) ∧
+            (AJConjecture.HasNormalizedIndex (AJConjecture.locDilationRescale δ a ha).c z₀ D₀ (RatFunc.C a * D₁) ι ↔
+              AJConjecture.HasNormalizedIndex δ.c z₀ D₀ D₁ ι)
+AJConjecture.hasSimpleResidue_locLogJet_of_allowedNode : ∀ (δ : AJConjecture.LocDilation) {P S R : AJConjecture.LocOp}
+  {β : AJConjecture.LocPoly},
+  AJConjecture.locJet0 β ≠ 0 →
+    Polynomial.C β * P = AJConjecture.oreMul δ.shiftHom S R →
+      ∀ {ι : Type u_1} [inst : Fintype ι] [inst_1 : DecidableEq ι] {B : ι → Polynomial (Polynomial ℂ)},
+        AJConjecture.LocResidualBlocks P B →
+          ∀ {κ₁ κ₂ : Polynomial ℂ} {g h : ι} {z₀ lam : ℂ},
+            AJConjecture.LocAllowedNode P B κ₁ κ₂ g h z₀ lam →
+              AJConjecture.LocBlockDvd (B g) (AJConjecture.opJet0 R) →
+                AJConjecture.LocBlockDvd (B h) (AJConjecture.opJet0 S) →
+                  AJConjecture.HasSimpleResidue
+                    ((algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.locLogJetNum R) /
+                      (algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.locLogJetDen R))
+                    z₀
+                    (δ.c * z₀ *
+                      AJConjecture.locNodeIndex δ.c z₀ lam (AJConjecture.opJet1 P) (B g) (B h)
+                        (AJConjecture.locCofactor B g h) κ₁ κ₂)
+@AJConjecture.hasSimpleResidue_ramify : ∀ {f : RatFunc ℂ} {z₀ ι : ℂ},
+  AJConjecture.HasSimpleResidue f z₀ ι →
+    ∀ {e : ℕ} (he : 0 < e),
+      AJConjecture.HasSimpleResidue ((AJConjecture.ratRamify z₀ e he) f * ↑e * RatFunc.X ^ (e - 1)) 0 (↑e * ι)
+@AJConjecture.isCoprime_extraFactor_pair : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s)
+  {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.pairWhiteheadKnot r s h)) A →
+    IsCoprime (AJConjecture.toComparison AJConjecture.extraFactor) (AJConjecture.toComparison A)
+AJConjecture.isRecurrencePolynomial_whiteheadTorusKnot_one : (∃ α,
+    AJConjecture.IsRecurrencePolynomial (AJConjecture.coloredJones (AJConjecture.whiteheadTorusKnot 1 ⋯)) α) ∧
+  ∀ (α : AJConjecture.RecOp),
+    AJConjecture.IsRecurrencePolynomial (AJConjecture.coloredJones (AJConjecture.whiteheadTorusKnot 1 ⋯)) α →
+      Polynomial.natDegree α = 16 ∧
+        Associated (AJConjecture.toComparison (AJConjecture.specialize α))
+          (AJConjecture.toComparison ((Polynomial.X - 1) ^ 2 * AJConjecture.extraFactor * AJConjecture.twistPoly 6))
+@AJConjecture.knotGroup_torusPairKnot_equiv : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s),
+  Nonempty (AJConjecture.KnotGroup (AJConjecture.torusPairKnot r s h) ≃* AJConjecture.TorusKnotGroup r s)
+AJConjecture.locBlockDvd_iff_of_forbiddenEdge : ∀ (δ : AJConjecture.LocDilation) {P S R : AJConjecture.LocOp}
+  {β : AJConjecture.LocPoly},
+  AJConjecture.locJet0 β ≠ 0 →
+    Polynomial.C β * P = AJConjecture.oreMul δ.shiftHom S R →
+      ∀ {ι : Type u_1} [inst : Fintype ι] [inst_1 : DecidableEq ι] {B : ι → Polynomial (Polynomial ℂ)},
+        AJConjecture.LocResidualBlocks P B →
+          ∀ {κ₁ κ₂ : Polynomial ℂ} {i j : ι} {z₀ lam : ℂ},
+            AJConjecture.LocAllowedNode P B κ₁ κ₂ i j z₀ lam →
+              (∀ (n : ℤ),
+                  AJConjecture.locNodeIndex δ.c z₀ lam (AJConjecture.opJet1 P) (B i) (B j)
+                      (AJConjecture.locCofactor B i j) κ₁ κ₂ ≠
+                    ↑n) →
+                (AJConjecture.LocBlockDvd (B i) (AJConjecture.opJet0 R) ↔
+                  AJConjecture.LocBlockDvd (B j) (AJConjecture.opJet0 R))
+AJConjecture.locFactored_nodeIndex : AJConjecture.locNodeIndex 1 1 1 (AJConjecture.opJet1 AJConjecture.locFactoredOp)
+      (AJConjecture.locToyBlock 0) (AJConjecture.locToyBlock 1) (AJConjecture.locCofactor AJConjecture.locToyBlock 0 1)
+      1 1 =
+    -1 ∧
+  AJConjecture.locNodeIndex 1 1 1 (AJConjecture.opJet1 AJConjecture.locFactoredOp) (AJConjecture.locToyBlock 1)
+      (AJConjecture.locToyBlock 0) (AJConjecture.locCofactor AJConjecture.locToyBlock 1 0) 1 1 =
+    0
+AJConjecture.locResidual_partition : ∀ (δ : AJConjecture.LocDilation) {P S R : AJConjecture.LocOp}
+  {β : AJConjecture.LocPoly},
+  AJConjecture.locJet0 β ≠ 0 →
+    Polynomial.C β * P = AJConjecture.oreMul δ.shiftHom S R →
+      (AJConjecture.opJet0 P).natDegree = Polynomial.natDegree P →
+        (AJConjecture.opJet0 P).coeff 0 ≠ 0 →
+          Squarefree (Polynomial.map (algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.opJet0 P)) →
+            AJConjecture.opJet0 S * AJConjecture.opJet0 R =
+                Polynomial.C (AJConjecture.locJet0 β) * AJConjecture.opJet0 P ∧
+              (AJConjecture.opJet0 R).natDegree = Polynomial.natDegree R ∧
+                (AJConjecture.opJet0 S).natDegree = Polynomial.natDegree S ∧
+                  (AJConjecture.opJet0 R).coeff 0 ≠ 0 ∧
+                    (AJConjecture.opJet0 S).coeff 0 ≠ 0 ∧
+                      IsCoprime (Polynomial.map (algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.opJet0 S))
+                        (Polynomial.map (algebraMap (Polynomial ℂ) (RatFunc ℂ)) (AJConjecture.opJet0 R))
+@AJConjecture.longKnotOp_pairWhiteheadKnot : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) (c : ℕ),
+  AJConjecture.longKnotOp (AJConjecture.pairWhiteheadKnot r s h) c =
+    AJConjecture.ptrTail c (2 * c)
+      (AJConjecture.longKnotOp (AJConjecture.torusPairKnot r s h) (2 * c) *
+        (AJConjecture.halfTwist c false ^ (2 * ((r - 1) * s)) * AJConjecture.claspOp c))
+AJConjecture.minimalRecurrence_whiteheadTorusKnot : ∀ (k : ℕ) (hk : 1 ≤ k),
+  (∃ α, AJConjecture.IsRecurrencePolynomial (AJConjecture.coloredJones (AJConjecture.whiteheadTorusKnot k hk)) α) ∧
+    ∀ (α : AJConjecture.RecOp),
+      AJConjecture.IsRecurrencePolynomial (AJConjecture.coloredJones (AJConjecture.whiteheadTorusKnot k hk)) α →
+        Polynomial.natDegree α = 8 * k + 8 ∧
+          Associated (AJConjecture.toComparison (AJConjecture.specialize α))
+            (AJConjecture.toComparison
+              ((Polynomial.X - 1) ^ 2 * AJConjecture.extraFactor * AJConjecture.twistPoly (2 * (2 * k + 1))))
+AJConjecture.not_weakLatticeLemma : ¬AJConjecture.WeakLatticeLemma
+@AJConjecture.orderOf_dvd_of_isOfFinOrder_cycCoprod : ∀ {r s : ℕ},
+  0 < r → 0 < s → ∀ {g : AJConjecture.CycCoprod r s}, IsOfFinOrder g → orderOf g ∣ r ∨ orderOf g ∣ s
+AJConjecture.oreIrreducible_of_connected : ∀ (δ : AJConjecture.LocDilation) {P : AJConjecture.LocOp},
+  0 < Polynomial.natDegree P →
+    (AJConjecture.opJet0 P).natDegree = Polynomial.natDegree P →
+      (AJConjecture.opJet0 P).coeff 0 ≠ 0 →
+        ∀ {ι : Type u_1} [inst : Fintype ι] [inst_1 : DecidableEq ι] {B : ι → Polynomial (Polynomial ℂ)},
+          AJConjecture.LocResidualBlocks P B →
+            ∀ (Γ : SimpleGraph ι),
+              Γ.Connected →
+                (∀ (i j : ι),
+                    Γ.Adj i j →
+                      ∃ κ₁ κ₂ z₀ lam,
+                        AJConjecture.LocAllowedNode P B κ₁ κ₂ i j z₀ lam ∧
+                          ∀ (n : ℤ),
+                            AJConjecture.locNodeIndex δ.c z₀ lam (AJConjecture.opJet1 P) (B i) (B j)
+                                (AJConjecture.locCofactor B i j) κ₁ κ₂ ≠
+                              ↑n) →
+                  AJConjecture.OreIrreducible δ.fieldShiftHom
+                    (Polynomial.map (algebraMap AJConjecture.LocPoly AJConjecture.LocField) P)
+AJConjecture.pairQ_abNode : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    ∀ {m₀ : ℂ},
+      ↑(r * s) * (m₀ ^ 2) ^ 2 - (2 * ↑(r * s) + 1) * m₀ ^ 2 + ↑(r * s) = 0 →
+        AJConjecture.evalIntPoint (AJConjecture.weylSymbol (AJConjecture.famTransferOp (r * s))) m₀ 1 = 0 ∧
+          AJConjecture.NodeCollisionFree (Polynomial.X - 1) (AJConjecture.twistPoly (r * s)) AJConjecture.extraFactor m₀
+              1 ∧
+            m₀ ≠ 0 ∧
+              m₀ ^ 2 ≠ 1 ∧
+                m₀ ^ 2 ≠ -1 ∧
+                  AJConjecture.evalIntPoint (AJConjecture.twistPoly (r * s)) m₀ 1 = 0 ∧
+                    AJConjecture.evalIntPoint AJConjecture.extraFactor m₀ 1 ≠ 0 ∧
+                      AJConjecture.evalIntPoint (Polynomial.derivative (AJConjecture.twistPoly (r * s))) m₀ 1 ≠ 0 ∧
+                        AJConjecture.evalIntPoint (AJConjecture.coeffDerivative (AJConjecture.twistPoly (r * s))) m₀ 1 ≠
+                          0
+AJConjecture.pairQ_block : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    Prime (AJConjecture.toComparison (Polynomial.X - 1)) ∧
+      Prime (AJConjecture.toComparison AJConjecture.extraFactor) ∧
+        Prime (AJConjecture.toComparison (AJConjecture.twistPoly (r * s))) ∧
+          Irreducible (Polynomial.map (Polynomial.mapRingHom (Int.castRingHom ℂ)) AJConjecture.extraFactor) ∧
+            Irreducible
+                (Polynomial.map
+                  ((algebraMap (Polynomial ℂ) (RatFunc ℂ)).comp (Polynomial.mapRingHom (Int.castRingHom ℂ)))
+                  (AJConjecture.twistPoly (r * s))) ∧
+              (Polynomial.X - 1).natDegree = 1 ∧
+                AJConjecture.extraFactor.natDegree = 2 ∧ (AJConjecture.twistPoly (r * s)).natDegree = 2 * (r * s)
+AJConjecture.pairQ_ebNode : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    ∀ {m₀ : ℂ},
+      ↑(r * s) * (2 * ↑(r * s) + 1) * (m₀ ^ 2) ^ 2 + (4 * ↑(r * s) ^ 2 + 2 * ↑(r * s) + 1) * m₀ ^ 2 +
+            ↑(r * s) * (2 * ↑(r * s) + 1) =
+          0 →
+        AJConjecture.evalIntPoint (AJConjecture.weylSymbol (AJConjecture.famTransferOp (r * s))) m₀
+              (AJConjecture.ebNodeL (r * s) m₀) =
+            0 ∧
+          AJConjecture.NodeCollisionFree AJConjecture.extraFactor (AJConjecture.twistPoly (r * s)) (Polynomial.X - 1) m₀
+              (AJConjecture.ebNodeL (r * s) m₀) ∧
+            AJConjecture.evalIntPoint AJConjecture.extraFactor m₀ (AJConjecture.ebNodeL (r * s) m₀) = 0 ∧
+              AJConjecture.evalIntPoint (AJConjecture.twistPoly (r * s)) m₀ (AJConjecture.ebNodeL (r * s) m₀) = 0 ∧
+                AJConjecture.evalIntPoint (Polynomial.derivative AJConjecture.extraFactor) m₀
+                        (AJConjecture.ebNodeL (r * s) m₀) *
+                      AJConjecture.evalIntPoint (AJConjecture.coeffDerivative (AJConjecture.twistPoly (r * s))) m₀
+                        (AJConjecture.ebNodeL (r * s) m₀) -
+                    AJConjecture.evalIntPoint (AJConjecture.coeffDerivative AJConjecture.extraFactor) m₀
+                        (AJConjecture.ebNodeL (r * s) m₀) *
+                      AJConjecture.evalIntPoint (Polynomial.derivative (AJConjecture.twistPoly (r * s))) m₀
+                        (AJConjecture.ebNodeL (r * s) m₀) ≠
+                  0
+AJConjecture.pairQ_formula_package : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    (∃ Q,
+        Q ≠ 0 ∧
+          ∃ c,
+            c ≠ 0 ∧
+              ∀ (n : ℤ),
+                AJConjecture.opApplyField (Polynomial.C c * Q)
+                    (AJConjecture.pairQFormula (AJConjecture.pairQOddColor r s)) n =
+                  0) ∧
+      ∀ (Q : AJConjecture.RecOp),
+        Q ≠ 0 →
+          Polynomial.IsPrimitive Q →
+            (∃ c,
+                c ≠ 0 ∧
+                  ∀ (n : ℤ),
+                    AJConjecture.opApplyField (Polynomial.C c * Q)
+                        (AJConjecture.pairQFormula (AJConjecture.pairQOddColor r s)) n =
+                      0) →
+              AJConjecture.specialize Q ≠ 0 ∧
+                AJConjecture.toComparison AJConjecture.extraFactor ∣
+                  AJConjecture.toComparison (AJConjecture.specialize Q)
+AJConjecture.pairQ_knot_package : ∀ (r s : ℕ) (h : AJConjecture.IsTorusPair r s),
+  AJConjecture.PairQTorusInput r s h →
+    ∀ (K : AJConjecture.BraidKnot),
+      (∀ (c : ℕ),
+          AJConjecture.longKnotOp K c =
+            AJConjecture.ptrTail c (2 * c)
+              (AJConjecture.longKnotOp (AJConjecture.torusPairKnot r s h) (2 * c) *
+                (AJConjecture.halfTwist c false ^ (2 * ((r - 1) * s)) * AJConjecture.claspOp c))) →
+        AJConjecture.writhe K.word = 2 * ↑((r - 1) * s) - 2 →
+          (∀ (n : ℤ),
+              AJConjecture.laurentToField (AJConjecture.coloredJones K n) =
+                AJConjecture.pairQFormula (AJConjecture.pairQOddColor r s) n) ∧
+            (∃ Q, Q ≠ 0 ∧ AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q) ∧
+              (∃ α, AJConjecture.IsRecurrencePolynomial (AJConjecture.coloredJones K) α) ∧
+                ∀ (Q : AJConjecture.RecOp),
+                  Q ≠ 0 →
+                    Polynomial.IsPrimitive Q →
+                      AJConjecture.InLocalizedAnnihilator (AJConjecture.coloredJones K) Q →
+                        AJConjecture.specialize Q ≠ 0 ∧
+                          AJConjecture.toComparison AJConjecture.extraFactor ∣
+                            AJConjecture.toComparison (AJConjecture.specialize Q)
+AJConjecture.pairQ_symbol : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    Polynomial.C ((Polynomial.X ^ 2 - 1) ^ (2 * (r * s) + 3) * (Polynomial.X ^ 4 - 1) ^ (2 * (r * s) + 3)) *
+        AJConjecture.specialize (AJConjecture.famTransferOp (r * s)) =
+      Polynomial.C
+          ((AJConjecture.famDet (r * s) 1).comp (Polynomial.X ^ 2) *
+            ((Polynomial.X ^ 2 + 1) ^ 2 * (Polynomial.X ^ 2 - 1))) *
+        ((Polynomial.X - 1) * AJConjecture.extraFactor * AJConjecture.twistPoly (r * s))
+AJConjecture.pairQ_tOrder_reducedFormula : ∀ (r s : ℕ),
+  2 ≤ r →
+    2 ≤ s →
+      ∀ {N : ℕ},
+        1 ≤ N →
+          AJConjecture.pairQReducedFormula (AJConjecture.pairQOddColor r s) N ≠ 0 ∧
+            AJConjecture.pairQTOrder (AJConjecture.pairQReducedFormula (AJConjecture.pairQOddColor r s) N) =
+              -4 * (↑N - 1) * (↑r * ↑s * ↑N - 1)
+AJConjecture.pairQ_transferOp_irreducible : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    Polynomial.natDegree (AJConjecture.famTransferOp (r * s)) = 2 * (r * s) + 3 ∧
+      ∀ {β : AJConjecture.Coeff},
+        β ≠ 0 →
+          ∀ {S R : AJConjecture.RecOp},
+            Polynomial.C β * AJConjecture.famTransferOp (r * s) = AJConjecture.oreMul AJConjecture.coeffShift S R →
+              Polynomial.natDegree R = 0 ∨ Polynomial.natDegree R = 2 * (r * s) + 3
+AJConjecture.pairQ_transferOp_oreIrreducible : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    AJConjecture.OreIrreducible AJConjecture.coeffShiftField
+      (Polynomial.map (algebraMap AJConjecture.Coeff (FractionRing AJConjecture.Coeff))
+        (AJConjecture.famTransferOp (r * s)))
+AJConjecture.pairWhiteheadKnot_knotGroup_not_equiv_of_jsj : AJConjecture.WhiteheadJSJProp →
+  ∀ {r s r' s' : ℕ} (h : AJConjecture.IsTorusPair r s) (h' : AJConjecture.IsTorusPair r' s'),
+    (r, s) ≠ (r', s') →
+      ¬Nonempty
+          (AJConjecture.KnotGroup (AJConjecture.pairWhiteheadKnot r s h) ≃*
+            AJConjecture.KnotGroup (AJConjecture.pairWhiteheadKnot r' s' h'))
+AJConjecture.pairWhiteheadKnot_not_markovEquiv_of_jsj : AJConjecture.WhiteheadJSJProp →
+  ∀ {r s r' s' : ℕ} (h : AJConjecture.IsTorusPair r s) (h' : AJConjecture.IsTorusPair r' s'),
+    (r, s) ≠ (r', s') →
+      ¬AJConjecture.MarkovEquiv (AJConjecture.pairWhiteheadKnot r s h) (AJConjecture.pairWhiteheadKnot r' s' h')
+@AJConjecture.pair_reverse_inclusion : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) {g : Polynomial (Polynomial ℂ)},
+  Irreducible g →
+    0 < g.natDegree →
+      g ∣ AJConjecture.mapC (AJConjecture.famB (r * s)) →
+        ∀ (p : ℂ × ℂ),
+          AJConjecture.evalPoint g p = 0 →
+            p ∈ AJConjecture.zariskiClosure (AJConjecture.eigenvalueSet (AJConjecture.pairWhiteheadKnot r s h))
+@AJConjecture.seq_theoremS : ∀ {P : Polynomial AJConjecture.SeqField},
+  AJConjecture.OreIrreducible AJConjecture.seqShift P →
+    ∀ {F : AJConjecture.SeqGerm},
+      F ∉ AJConjecture.seqEval.range →
+        AJConjecture.diffAct AJConjecture.seqEval AJConjecture.seqGermShift P F ∈ AJConjecture.seqEval.range →
+          ∀ {G : Polynomial AJConjecture.SeqField},
+            AJConjecture.diffAct AJConjecture.seqEval AJConjecture.seqGermShift G F = 0 →
+              ∃ H, G = AJConjecture.oreMul AJConjecture.seqShift H P
+AJConjecture.sub_one_dvd_aPolynomial : ∀ (K : AJConjecture.BraidKnot) {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet K) A → Polynomial.X - 1 ∣ AJConjecture.mapC A
+AJConjecture.tailOrder_whiteheadTorusKnot : ∀ (k : ℕ),
+  1 ≤ k →
+    (∃ G,
+        G ≠ 0 ∧
+          Polynomial.natDegree G = 8 * k + 8 ∧
+            ∀ (n : ℤ), 1 ≤ n → AJConjecture.opApplyField G (AJConjecture.torusWhiteheadFormula (2 * k + 1)) n = 0) ∧
+      (∀ (G : AJConjecture.RecOp),
+          G ≠ 0 →
+            (∃ n₁,
+                ∀ (n : ℤ),
+                  n₁ ≤ n → AJConjecture.opApplyField G (AJConjecture.torusWhiteheadFormula (2 * k + 1)) n = 0) →
+              8 * k + 8 ≤ Polynomial.natDegree G) ∧
+        (∃ G,
+            G ≠ 0 ∧
+              Polynomial.natDegree G = 8 * k + 8 ∧
+                ∀ (n : ℤ),
+                  1 ≤ n → AJConjecture.opApplyField G (AJConjecture.torusReducedFormulaEven (2 * k + 1)) n = 0) ∧
+          ∀ (G : AJConjecture.RecOp),
+            G ≠ 0 →
+              (∃ n₁,
+                  ∀ (n : ℤ),
+                    n₁ ≤ n → AJConjecture.opApplyField G (AJConjecture.torusReducedFormulaEven (2 * k + 1)) n = 0) →
+                8 * k + 8 ≤ Polynomial.natDegree G
+AJConjecture.theoremF : (∀ (k : ℕ) (hk : 1 ≤ k),
+    AJConjecture.PairTClauses (AJConjecture.pairWhiteheadKnot 2 (2 * k + 1) ⋯) (2 * (2 * k + 1)) ∧
+      (AJConjecture.pairWhiteheadKnot 2 (2 * k + 1) ⋯).word = AJConjecture.whiteheadTorusWord k ∧
+        (AJConjecture.pairWhiteheadKnot 2 (2 * k + 1) ⋯).strands = 4 * k + 3) ∧
+  ∀ (k k' : ℕ) (hk : 1 ≤ k) (hk' : 1 ≤ k'),
+    k ≠ k' →
+      ¬AJConjecture.MarkovEquiv (AJConjecture.pairWhiteheadKnot 2 (2 * k + 1) ⋯)
+          (AJConjecture.pairWhiteheadKnot 2 (2 * k' + 1) ⋯)
+AJConjecture.theoremT : (∀ (r s : ℕ) (h : AJConjecture.IsTorusPair r s),
+    AJConjecture.PairTClauses (AJConjecture.pairWhiteheadKnot r s h) (r * s)) ∧
+  (∀ (r s r' s' : ℕ) (h : AJConjecture.IsTorusPair r s) (h' : AJConjecture.IsTorusPair r' s'),
+      (r, s) ≠ (r', s') →
+        ¬AJConjecture.MarkovEquiv (AJConjecture.pairWhiteheadKnot r s h) (AJConjecture.pairWhiteheadKnot r' s' h')) ∧
+    ∀ (j : ℕ), 1 ≤ j → AJConjecture.IsTorusPair 3 (3 * j + 1)
+AJConjecture.theoremT_of_input : (∀ (r s : ℕ) (h : AJConjecture.IsTorusPair r s), AJConjecture.PairQTorusInput r s h) →
+  (∀ (r s : ℕ) (h : AJConjecture.IsTorusPair r s),
+      AJConjecture.PairTClauses (AJConjecture.pairWhiteheadKnot r s h) (r * s)) ∧
+    (∀ (r s r' s' : ℕ) (h : AJConjecture.IsTorusPair r s) (h' : AJConjecture.IsTorusPair r' s'),
+        (r, s) ≠ (r', s') →
+          ¬AJConjecture.MarkovEquiv (AJConjecture.pairWhiteheadKnot r s h) (AJConjecture.pairWhiteheadKnot r' s' h')) ∧
+      ∀ (j : ℕ), 1 ≤ j → AJConjecture.IsTorusPair 3 (3 * j + 1)
+@AJConjecture.toComparison_dvd_famBound_pair : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s)
+  {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.pairWhiteheadKnot r s h)) A →
+    AJConjecture.toComparison A ∣ AJConjecture.toComparison (AJConjecture.famBound (r * s))
+@AJConjecture.toComparison_specialize_dvd_of_tail_annihilator_gauge : ∀ {P : AJConjecture.RecOp},
+  0 < Polynomial.natDegree P →
+    AJConjecture.specialize P ≠ 0 →
+      (∀ {β : AJConjecture.Coeff},
+          β ≠ 0 →
+            ∀ {S R : AJConjecture.RecOp},
+              Polynomial.C β * P = AJConjecture.oreMul AJConjecture.coeffShift S R →
+                Polynomial.natDegree R = 0 ∨ Polynomial.natDegree R = Polynomial.natDegree P) →
+        ∀ {F : ℤ → RatFunc ℚ},
+          ¬AJConjecture.EventuallyRational F →
+            (AJConjecture.EventuallyRational fun n => AJConjecture.opApplyField P F n) →
+              ∀ {J : ℤ → RatFunc ℚ},
+                (∀ (n : ℤ), 1 ≤ n → J n = AJConjecture.quantumInt n * F n) →
+                  ∀ {Q : AJConjecture.RecOp},
+                    Polynomial.IsPrimitive Q →
+                      (∃ c, c ≠ 0 ∧ ∃ n₀, ∀ (n : ℤ), n₀ ≤ n → AJConjecture.opApplyField (Polynomial.C c * Q) J n = 0) →
+                        AJConjecture.toComparison (AJConjecture.specialize P) ∣
+                          AJConjecture.toComparison (AJConjecture.specialize Q)
+@AJConjecture.torusKnotGroup_quot_center : ∀ {r s : ℕ},
+  AJConjecture.IsTorusPair r s →
+    Nonempty
+      (AJConjecture.TorusKnotGroup r s ⧸ Subgroup.center (AJConjecture.TorusKnotGroup r s) ≃*
+        AJConjecture.CycCoprod r s)
+AJConjecture.toyRecOp_primitive_specialize : Polynomial.IsPrimitive AJConjecture.toyRecOp ∧
+  Polynomial.natDegree AJConjecture.toyRecOp = 2 ∧
+    AJConjecture.specialize AJConjecture.toyRecOp =
+      (Polynomial.X - Polynomial.C Polynomial.X) * (Polynomial.X + Polynomial.C (Polynomial.X - 2))
+@AJConjecture.toyRecOp_pseudoIrreducible : ∀ {β : AJConjecture.Coeff},
+  β ≠ 0 →
+    ∀ {S R : AJConjecture.RecOp},
+      Polynomial.C β * AJConjecture.toyRecOp = AJConjecture.oreMul AJConjecture.coeffShift S R →
+        Polynomial.natDegree R = 0 ∨ Polynomial.natDegree R = Polynomial.natDegree AJConjecture.toyRecOp
+AJConjecture.toy_theoremI : AJConjecture.OreIrreducible AJConjecture.toyDilation.fieldShiftHom
+    (Polynomial.map (algebraMap AJConjecture.LocPoly AJConjecture.LocField) AJConjecture.locToyOp) ∧
+  (∀ (n : ℤ), AJConjecture.opApplyField AJConjecture.toyRecOp AJConjecture.toySeq n = 0) ∧
+    (∀ {Q : AJConjecture.RecOp} {n₁ : ℤ},
+        (∀ (n : ℤ), n₁ ≤ n → AJConjecture.opApplyField Q AJConjecture.toySeq n = 0) →
+          ∃ β, β ≠ 0 ∧ ∃ T, Polynomial.C β * Q = AJConjecture.oreMul AJConjecture.coeffShift T AJConjecture.toyRecOp) ∧
+      Polynomial.IsPrimitive AJConjecture.toyRecOp ∧
+        AJConjecture.specialize AJConjecture.toyRecOp =
+          (Polynomial.X - Polynomial.C Polynomial.X) * (Polynomial.X + Polynomial.C (Polynomial.X - 2))
+@AJConjecture.writhe_pairWhiteheadKnot : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s),
+  AJConjecture.writhe (AJConjecture.pairWhiteheadKnot r s h).word = 2 * ↑((r - 1) * s) - 2
+AJConjecture.pairQ_torusInput : ∀ (r s : ℕ) (h : AJConjecture.IsTorusPair r s), AJConjecture.PairQTorusInput r s h
+AJConjecture.pairQ_opApplyField_famTransferOp : ∀ (r s : ℕ),
+  AJConjecture.IsTorusPair r s →
+    ∀ {n : ℤ},
+      1 ≤ n →
+        AJConjecture.opApplyField (AJConjecture.famTransferOp (r * s))
+            (AJConjecture.pairQReducedFormulaEven (AJConjecture.pairQOddColor r s)) n =
+          AJConjecture.pairQTransferRhs (r * s) (r + s + 1)
+            (AJConjecture.pairQCycloDefect (r * s) (AJConjecture.pairQOddColor r s)) n
+@AJConjecture.aPolynomial_pair_associated_famBound : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s)
+  {A : Polynomial (Polynomial ℤ)},
+  AJConjecture.IsAPolynomialOf (AJConjecture.eigenvalueSet (AJConjecture.pairWhiteheadKnot r s h)) A →
+    Associated (AJConjecture.toComparison A) (AJConjecture.toComparison (AJConjecture.famBound (r * s)))
+AJConjecture.longKnotOp_mul_jwAt_eq_smul : ∀ (K : AJConjecture.BraidKnot) (k : ℕ),
+  AJConjecture.longKnotOp K k * AJConjecture.jwAt k 0 k =
+    (AJConjecture.longKnotOp K k (fun x => false) fun x => false) • AJConjecture.jwAt k 0 k
+AJConjecture.exists_laurent_torusReducedFormula : ∀ (k N : ℕ),
+  1 ≤ k → 1 ≤ N → ∃ P, AJConjecture.laurentToField P = AJConjecture.torusReducedFormula (2 * k + 1) N
+AJConjecture.geo_hypVolume_idealTetI : AJConjecture.geoHypMeasure AJConjecture.geoIdealTetI =
+  ENNReal.ofReal AJConjecture.catalanConstant
+AJConjecture.geo_reduced_value_eq_zhengDiagonal : ∀ (a N : ℕ),
+  1 ≤ N →
+    ∀ (P : LaurentPolynomial ℤ),
+      AJConjecture.laurentToField P = AJConjecture.torusReducedFormula a N →
+        (LaurentPolynomial.eval₂ (Int.castRingHom ℂ) (Units.mk0 (Complex.exp (↑Real.pi * Complex.I / (2 * ↑N))) ⋯)) P =
+          AJConjecture.geoZhengDiagonal a N
+AJConjecture.natDegree_isRecurrencePolynomial_whiteheadTorusKnot : ∀ (k : ℕ) (hk : 1 ≤ k) {α : AJConjecture.RecOp},
+  AJConjecture.IsRecurrencePolynomial (AJConjecture.coloredJones (AJConjecture.whiteheadTorusKnot k hk)) α →
+    Polynomial.natDegree α = 8 * k + 8
+AJConjecture.specialize_isRecurrencePolynomial_whiteheadTorusKnot : ∀ (k : ℕ) (hk : 1 ≤ k) {α : AJConjecture.RecOp},
+  AJConjecture.IsRecurrencePolynomial (AJConjecture.coloredJones (AJConjecture.whiteheadTorusKnot k hk)) α →
+    Associated (AJConjecture.toComparison (AJConjecture.specialize α))
+      (AJConjecture.toComparison
+        ((Polynomial.X - 1) ^ 2 * AJConjecture.extraFactor * AJConjecture.twistPoly (2 * (2 * k + 1))))
+@AJConjecture.pairRealizesSatellite : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s),
+  AJConjecture.PairRealizesSatellite (AJConjecture.torusPairKnot r s h) (AJConjecture.pairWhiteheadKnot r s h)
+@AJConjecture.isWhSatellite_pairWhiteheadKnot : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s),
+  AJConjecture.IsWhSatellite (AJConjecture.torusPairKnot r s h) (AJConjecture.pairWhiteheadKnot r s h)
+AJConjecture.pairQJets_abNode : ∀ (m : ℕ),
+  2 ≤ m →
+    ∀ {m₀ : ℂ},
+      ↑m * (m₀ ^ 2) ^ 2 - (2 * ↑m + 1) * m₀ ^ 2 + ↑m = 0 →
+        AJConjecture.LocAllowedNode (AJConjecture.pairQJetRow (AJConjecture.famTransferOp m))
+            (AJConjecture.pairQJetBlocks m) (AJConjecture.pairQJetKappa₁ m) (AJConjecture.pairQJetKappa₂ m) 0 2 m₀ 1 ∧
+          AJConjecture.locNodeIndex AJConjecture.pairQJetDilation.c m₀ 1
+                (AJConjecture.opJet1 (AJConjecture.pairQJetRow (AJConjecture.famTransferOp m)))
+                (AJConjecture.pairQJetBlocks m 0) (AJConjecture.pairQJetBlocks m 2)
+                (AJConjecture.locCofactor (AJConjecture.pairQJetBlocks m) 0 2) (AJConjecture.pairQJetKappa₁ m)
+                (AJConjecture.pairQJetKappa₂ m) =
+              -1 / 2 ∧
+            AJConjecture.locNodeIndex AJConjecture.pairQJetDilation.c m₀ 1
+                (AJConjecture.opJet1 (AJConjecture.pairQJetRow (AJConjecture.famTransferOp m)))
+                (AJConjecture.pairQJetBlocks m 2) (AJConjecture.pairQJetBlocks m 0)
+                (AJConjecture.locCofactor (AJConjecture.pairQJetBlocks m) 2 0) (AJConjecture.pairQJetKappa₁ m)
+                (AJConjecture.pairQJetKappa₂ m) =
+              -1 / 2
+AJConjecture.pairQJets_ebNode : ∀ (m : ℕ),
+  2 ≤ m →
+    ∀ {m₀ : ℂ},
+      ↑m * (2 * ↑m + 1) * (m₀ ^ 2) ^ 2 + (4 * ↑m ^ 2 + 2 * ↑m + 1) * m₀ ^ 2 + ↑m * (2 * ↑m + 1) = 0 →
+        AJConjecture.LocAllowedNode (AJConjecture.pairQJetRow (AJConjecture.famTransferOp m))
+            (AJConjecture.pairQJetBlocks m) (AJConjecture.pairQJetKappa₁ m) (AJConjecture.pairQJetKappa₂ m) 1 2 m₀
+            (AJConjecture.ebNodeL m m₀)⁻¹ ∧
+          AJConjecture.locNodeIndex AJConjecture.pairQJetDilation.c m₀ (AJConjecture.ebNodeL m m₀)⁻¹
+                (AJConjecture.opJet1 (AJConjecture.pairQJetRow (AJConjecture.famTransferOp m)))
+                (AJConjecture.pairQJetBlocks m 1) (AJConjecture.pairQJetBlocks m 2)
+                (AJConjecture.locCofactor (AJConjecture.pairQJetBlocks m) 1 2) (AJConjecture.pairQJetKappa₁ m)
+                (AJConjecture.pairQJetKappa₂ m) =
+              -1 / 2 ∧
+            AJConjecture.locNodeIndex AJConjecture.pairQJetDilation.c m₀ (AJConjecture.ebNodeL m m₀)⁻¹
+                (AJConjecture.opJet1 (AJConjecture.pairQJetRow (AJConjecture.famTransferOp m)))
+                (AJConjecture.pairQJetBlocks m 2) (AJConjecture.pairQJetBlocks m 1)
+                (AJConjecture.locCofactor (AJConjecture.pairQJetBlocks m) 2 1) (AJConjecture.pairQJetKappa₁ m)
+                (AJConjecture.pairQJetKappa₂ m) =
+              -1 / 2
+@AJConjecture.exists_pairFixedTuple : ∀ {r s : ℕ} (h : AJConjecture.IsTorusPair r s) {G : Type u_1} [inst : Group G]
+  (ψ : AJConjecture.KnotGroup (AJConjecture.torusPairKnot r s h) →* G) (a : G),
+  ψ (AJConjecture.meridian (AJConjecture.torusPairKnot r s h)) =
+      AJConjecture.compMer a
+        ((ψ (AJConjecture.longitude (AJConjecture.torusPairKnot r s h)))⁻¹ * a *
+          ψ (AJConjecture.longitude (AJConjecture.torusPairKnot r s h))) →
+    ∃ f,
+      AJConjecture.runTop (AJConjecture.pairStrands r s) (AJConjecture.pairBlocks r s) f = f ∧
+        f ⟨0, ⋯⟩ = a ∧
+          ∀ (k : Fin r),
+            AJConjecture.pairCompTuple r s
+                (AJConjecture.loopAt (AJConjecture.pairStrands r s) (AJConjecture.pairBlocks r s) f) k =
+              ψ (PresentedGroup.of k)

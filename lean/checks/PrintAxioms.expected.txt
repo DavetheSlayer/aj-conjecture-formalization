@@ -1,0 +1,24 @@
+not_ajSquareFreeConjecture : ¬AJSquareFreeConjecture
+'AJConjecture.not_ajSquareFreeConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.ajFamily_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.whiteheadTorusKnot_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.whiteheadTorusKnot_pairwise_not_markovEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.laurentToField_coloredJones_whiteheadTorusKnot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.extraFactor_dvd_specialize_of_annihilates_torusWhiteheadFormula' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'AJConjecture.satellitePeripheral_whiteheadTorusKnot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.evalPoint_famBound_of_mem_eigenvalueSet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.exists_aPolynomial_not_extraFactor_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.longKnotOp_whiteheadTorusKnot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.exists_annihilator_torusWhiteheadFormula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.natDegree_eq_zero_or_of_oreMul_eq_famTransferOp' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'AJConjecture.coloredJones_two_whiteheadTorusKnot_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.morseOp_eq_of_morseApplyAll' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.mahlerMeasure_extraFactor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.whitehead_volume' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.whitehead_slice_mem_extraFactor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.exists_whitehead_slice_of_extraFactor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AJConjecture.ajSquareFree_unknot' depends on axioms: [propext, Classical.choice, Quot.sound]

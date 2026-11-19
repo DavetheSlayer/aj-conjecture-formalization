@@ -1,0 +1,17 @@
+1. closed form of corrected b: max relative error 2.1638568027739093e-13
+a=1: (5.16) max|bH+D|/N^4=1.000 (claimed <= 31); max|b|/N^3=0.250 (<=7/4); max|H|/N=1.000 (<=4); max|D|/(aN^3)=1.000 (<=24)
+      window: max|b|/N^2=0.701 (claimed <= 2); max|H|=1.564; max|bH|/N^2=1.086
+a=3: (5.16) max|bH+D|/N^4=1.000 (claimed <= 79); max|b|/N^3=0.250 (<=7/4); max|H|/N=1.000 (<=4); max|D|/(aN^3)=0.333 (<=24)
+      window: max|b|/N^2=0.615 (claimed <= 2); max|H|=1.414; max|bH|/N^2=0.850
+a=5: (5.16) max|bH+D|/N^4=1.000 (claimed <= 127); max|b|/N^3=0.250 (<=7/4); max|H|/N=1.000 (<=4); max|D|/(aN^3)=0.255 (<=24)
+      window: max|b|/N^2=0.601 (claimed <= 2); max|H|=1.414; max|bH|/N^2=0.850
+a=7: (5.16) max|bH+D|/N^4=1.000 (claimed <= 175); max|b|/N^3=0.250 (<=7/4); max|H|/N=1.000 (<=4); max|D|/(aN^3)=0.288 (<=24)
+      window: max|b|/N^2=0.601 (claimed <= 2); max|H|=1.414; max|bH|/N^2=0.850
+a=11: (5.16) max|bH+D|/N^4=1.000 (claimed <= 271); max|b|/N^3=0.250 (<=7/4); max|H|/N=1.000 (<=4); max|D|/(aN^3)=0.240 (<=24)
+      window: max|b|/N^2=0.601 (claimed <= 2); max|H|=1.414; max|bH|/N^2=0.850
+a=21: (5.16) max|bH+D|/N^4=1.445 (claimed <= 511); max|b|/N^3=0.250 (<=7/4); max|H|/N=1.000 (<=4); max|D|/(aN^3)=0.250 (<=24)
+      window: max|b|/N^2=0.601 (claimed <= 2); max|H|=1.414; max|bH|/N^2=0.850
+4. one-step recursion: max|E_n| = 3.9419 (<=4); identity residual 2.977287962017329e-08 ; max|(s/2)E_n'|/(aN^2) = 0.353 (<=40)
+5. a=3: sup|H_n| on Zheng window 0.706; on the extra boundary layer 0.852
+5. a=5: sup|H_n| on Zheng window 0.436; on the extra boundary layer 0.639
+5. a=7: sup|H_n| on Zheng window 0.312; on the extra boundary layer 0.413
