@@ -40,7 +40,7 @@ Both together took 22 minutes of wall-clock time (19 November 2026, 15:52 to 16:
 
 ## Kernel replay
 
-`tools/replay_modules.sh` replays every module with `leanchecker`, one process per module. On a checkout of the audit repository whose `Proofs/` and `Solution.lean` are byte-identical to those of this tree, all modules were accepted: the 807 earlier modules of `Proofs/` on 18 November 2026, and the 224 modules of `AJTwist` and `Solution` on 20 November 2026. The replay on the build described above was started when this record was written; its result is in the addendum below once it is there.
+`tools/replay_modules.sh` replays every module with `leanchecker`, one process per module. On a checkout of the audit repository whose `Proofs/` and `Solution.lean` are byte-identical to those of this tree, all modules were accepted: the 807 earlier modules of `Proofs/` on 18 November 2026, and the 224 modules of `AJTwist` and `Solution` on 20 November 2026. The replay on the build described above is in the addendum.
 
 ## Checks outside Lean
 
@@ -55,3 +55,9 @@ The scripts of `scripts/four_families/` were run on 20 November 2026 on the brai
 ## Relation to the audit repository
 
 `lean/Proofs/`, `lean/Solution.lean`, `lean/Challenge.lean`, `lean/Challenge/`, `lean/comparator.json`, `lean/lake-manifest.json` and `lean/lean-toolchain` are byte-identical to the working tree of the audit repository in which the four-family library was added on 19–20 November. The differences in `lean/` are path names in comments of `lakefile.toml`, of the four files `checks/PrintAxioms*.lean` and of six tools (`AuditReach.lean`, `TwWords.lean`, `V1Appendix.lean`, `closure_decls.py`, `compare_reach.py`, `replay_modules.sh`), and the two new tools `check_imports.py` and `run_comparator.sh`.
+
+## Addendum: kernel replay on this build
+
+Added in a later commit that changes only this file; the tree of `lean/` is the one named above.
+
+`bash tools/replay_modules.sh 6`, run in `lean/` on the build described above (19 November 2026, 16:16 to 17:09 UTC, 53 minutes with 6 processes): `modules: 1032, results: 1032`, `1032 exit 0`. Every module of `Proofs/` and `Solution` was accepted by `leanchecker`: the 1,027 non-root modules each by its own `leanchecker` process, the roots `AJConjecture`, `AJFamily`, `AJHandoff`, `AJTwist` and `Solution` by `tools/ReplayExact.lean`. The challenge modules are not replayed (they contain `sorry` by design).

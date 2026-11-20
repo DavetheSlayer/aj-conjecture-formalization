@@ -12,6 +12,7 @@ namespace AJConjecture
 
 section
 open Polynomial
+abbrev mapC (P : ℤ[X][X]) : ℂ[X][X] := P.map (Polynomial.mapRingHom (Int.castRingHom ℂ))
 def famX : ℤ[X][X] := C (X ^ 2)
 def famP : ℤ[X][X] := (famX - 1) * (1 - X)
 def famQ : ℤ[X][X] := famX + X

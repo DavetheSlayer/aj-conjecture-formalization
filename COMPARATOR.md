@@ -2,7 +2,7 @@
 
 `lake comparator` (part of Lake since Lean 4.35; `lake comparator --help`) judges a solution against a challenge. For each theorem named in the configuration it establishes that the solution proves the same statement as the challenge from identical declarations, that the proof uses no axiom outside the permitted list, and that Lean's kernel and every additional kernel named in the configuration accept it. It builds and exports both sides inside a `bwrap` sandbox.
 
-**State.** The comparator has not been run on this version. Everything below prepares that run. The local checks that were made instead are in [`reports/local-checks-2026-11-20.md`](reports/local-checks-2026-11-20.md); they do not replace it.
+**State.** The comparator has not been run on this version. Everything below prepares that run. The local checks that were made instead are in [`reports/local-checks-2026-11-20b.md`](reports/local-checks-2026-11-20b.md); they do not replace it.
 
 ## What is judged
 
@@ -10,9 +10,9 @@
 |---|---|
 | Directory | `lean/` |
 | Configuration | [`lean/comparator.json`](lean/comparator.json) (the default file name, so no `--config` is needed) |
-| Challenge | module `Challenge`: `lean/Challenge.lean`, on top of the 97 modules `lean/Challenge/C_*.lean`; it imports only Mathlib and contains 49 statements with `sorry` |
+| Challenge | module `Challenge`: `lean/Challenge.lean`, on top of the 106 modules `lean/Challenge/C_*.lean`; it imports only Mathlib and contains 60 statements with `sorry` |
 | Solution | module `Solution`: `lean/Solution.lean`, which imports the libraries of `lean/Proofs/` |
-| Theorems | the 49 names of `theorem_names`: the 47 of the untwisted release and `AJConjecture.release_theoremFourFamilies`, `AJConjecture.release_fourFamilies_coloredJones` |
+| Theorems | the 60 names of `theorem_names`: the 47 of the untwisted release, the two of the four families (`AJConjecture.release_theoremFourFamilies`, `AJConjecture.release_fourFamilies_coloredJones`) and the eleven on the further claims of the paper ([`docs/FURTHER_CLAIMS.md`](docs/FURTHER_CLAIMS.md)) |
 | Definition holes | none |
 | Permitted axioms | `propext`, `Quot.sound`, `Classical.choice` |
 | Kernels | Lean's kernel, and `nanoda` (`"external_kernels": {"nanoda": ["nanoda_bin"]}`) |
@@ -62,12 +62,12 @@ Your solution is okay!
 
 These come from the accepted run of 15 November 2026 on the single-braid theorem ([report](reports/comparator-2026-11-15.md)) and from the structure of the present version.
 
-1. **Do not run `lake build` before the comparator** if the project is to be built inside the sandbox, as in the earlier run: start from a checkout whose `.lake` holds only the Mathlib cache. The comparator then compiles the 1,130 project modules itself (1,032 of the library and the solution, 98 of the challenge). The preflight reports whether `.lake/build` already exists; the report should say which was the case.
+1. **Do not run `lake build` before the comparator** if the project is to be built inside the sandbox, as in the earlier run: start from a checkout whose `.lake` holds only the Mathlib cache. The comparator then compiles the 1,273 project modules itself (1,166 of the library and the solution, 107 of the challenge). The preflight reports whether `.lake/build` already exists; the report should say which was the case.
 2. **`nanoda_bin` must be on `PATH`.** It ships in the toolchain's `bin/`, for which elan makes no proxy; without it the comparator stops at once with ``error: `nanoda` kernel `nanoda_bin` was not found`` (exit code 2). The script handles this; by hand use the `PATH` line above.
 3. **`lake exe cache get` on an old distribution.** The command first compiles Mathlib's cache tool with the toolchain's bundled `clang`, which needs glibc 2.30 or later. On Rocky Linux 8 (glibc 2.28) the earlier run made the download inside an Ubuntu 24.04 container writing into the same `.lake` directory; everything else ran natively.
 4. **Stack size.** Some proofs are kernel evaluations with deep recursion (`decide` on the isotopy certificates of `Proofs/AJFamily/Skein/TorusPhase*.lean` and of the satellite bridge). If a replay step ends with a segmentation fault, run with `ulimit -s unlimited`. The script tries to raise the limit and records the value in force.
 5. **Local disk.** On a cluster, copy the checkout, the toolchain (`~/.elan`) and `.lake` to node-local disk first; importing Mathlib from a network file system is slow.
-6. **Resources.** The earlier run (426 project modules, one theorem) took 14 minutes on 64 cores and peaked at 44.7 GB with up to 31 Lean processes at once. The present version has 1,130 project modules and 49 theorems, and its export and the two kernel passes cover much more; their times have not been measured. A build from scratch of the same modules outside the sandbox took 22 minutes on a 10-core laptop with 32 GB (see the local record), with single modules of up to two minutes. Request memory in proportion to the number of cores Lake will use, and several hours of wall-clock time.
+6. **Resources.** The earlier run (426 project modules, one theorem) took 14 minutes on 64 cores and peaked at 44.7 GB with up to 31 Lean processes at once. The present version has 1,273 project modules and 60 theorems, and its export and the two kernel passes cover much more; their times have not been measured. A build from scratch of the same modules outside the sandbox took about half an hour on a 10-core laptop with 32 GB (see the local records), with single modules of up to two minutes. Request memory in proportion to the number of cores Lake will use, and several hours of wall-clock time.
 7. **`--paranoid`** also runs `leanchecker-paranoid`, `lean4lean`, `con-leche` and `con-ron`. On the single-braid version `con-ron` exhausted memory on two certificate declarations that Lean's kernel and `nanoda` check in seconds. Run the plain command first and report `--paranoid` separately if it is tried.
 8. **Logging the sandbox calls (optional).** If the environment variable `COMPARATOR_BWRAP` names a wrapper script, the comparator calls it in place of `bwrap`; the earlier run used a wrapper that appends each command line to a log and then runs `/usr/bin/bwrap` with the same arguments. The seven calls were: `lake env` (the only one with network), `lake build` of the challenge, `leanexport` of the challenge, `lake build` of the solution, `leanexport` of the solution, `nanoda_bin` on the export, `leanchecker --silent --from-export`.
 9. **The sandbox flag.** Do not pass `--inadvisably-no-sandbox`: a run without the sandbox is not a comparator verification.
@@ -88,7 +88,7 @@ Optional, outside the sandbox, on the build products the comparator made:
 
 ```sh
 lake build                                   # nothing should be left to build
-for f in PrintAxioms PrintAxiomsHandoff PrintAxiomsV1 PrintAxiomsFourFamilies; do
+for f in PrintAxioms PrintAxiomsHandoff PrintAxiomsV1 PrintAxiomsFourFamilies PrintAxiomsPaper; do
   lake env lean checks/$f.lean | diff - checks/$f.expected.txt && echo "$f: as recorded"
 done
 python3 tools/make_challenge.py --check

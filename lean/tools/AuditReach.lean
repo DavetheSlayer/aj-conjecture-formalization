@@ -18,8 +18,10 @@ For each group of root theorems it follows every constant occurring in the types
 proof terms (theorem bodies included) and reports which of the watched premises are reached. The
 core, bridge and MARK groups must reach only `MarkovEquiv` (the relation named in the distinctness conclusion); the
 four-family group (the theorem of the handoff of 18 November 2026, which makes no distinctness
-claim) must reach none of them; the control groups show that the tool detects a premise when it is
-used. Recorded output: `docs/V1_SCOPE.md`, Section 2, and `docs/FOUR_FAMILIES.md` for the four-family group.
+claim) and the group `PAPER` (Sections 7.6, 8.4, 8.5, 9) must reach none of them; the group `PHYS`
+(Theorem B.1 (4) without hypothesis) reaches the predicates of Zheng's estimates, which are now
+proved, and no other watched premise; the control groups show that the tool detects a premise when
+it is used. Recorded output: `docs/V1_SCOPE.md`, Section 2, and `docs/FOUR_FAMILIES.md` for the four-family group.
 -/
 open Lean Meta Elab Command
 
@@ -61,6 +63,12 @@ elab "#audit_reach" : command => do
     ("FOUR_FAMILIES", [`AJConjecture.theoremFourFamilies,
       `AJConjecture.release_theoremFourFamilies, `AJConjecture.release_fourFamilies_coloredJones,
       `AJConjecture.isBandClasp_twWhiteheadKnot, `AJConjecture.twH_exists_annihilator]),
+    ("PAPER", [`AJConjecture.release_corollaryUntwisted, `AJConjecture.release_wholeSymbolAllTwists,
+      `AJConjecture.release_subOneDvd, `AJConjecture.ppl_irreducible,
+      `AJConjecture.release_idealFormulations, `AJConjecture.corollary_whitehead_fingerprint,
+      `AJConjecture.release_fillingFactor, `AJConjecture.release_fillingDichotomy,
+      `AJConjecture.release_twistKnots]),
+    ("PHYS", [`AJConjecture.geo_phys_holds, `AJConjecture.zhengEstimates_holds]),
     ("CONTROL_ZHENG", [`AJConjecture.geo_phys_of_zhengVerbatim]),
     ("CONTROL_JSJ", [`AJConjecture.pairWhiteheadKnot_not_markovEquiv_of_jsj]),
     ("CONTROL_G", [`AJConjecture.geo_theoremG])]

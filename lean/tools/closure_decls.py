@@ -34,8 +34,13 @@ OUT = pathlib.Path(_tmp.name)
 spec = importlib.util.spec_from_file_location("g", LEAN / "tools" / "make_challenge.py")
 g = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(g)
-PREFIXES = ("AJConjecture", "AJFamily", "AJHandoff", "AJTwist", "SolutionDefs")
+# the libraries of Proofs/ (every root listed in lakefile.toml); a library missing here is not
+# searched, and its declarations would be missing from the challenge
+PREFIXES = ("AJConjecture", "AJFamily", "AJHandoff", "AJTwist", "AJPaper", "SolutionDefs")
 
+_roots = re.search(r'roots = \[(.*?)\]', (LEAN / "lakefile.toml").read_text(encoding="utf-8")).group(1)
+assert sorted(re.findall(r'"([^"]+)"', _roots)) == sorted(PREFIXES), (
+    "PREFIXES differs from the roots of the library in lakefile.toml", _roots)
 stmt_modules = sorted({rel.removesuffix(".lean").replace("/", ".") for rel, _ in g.STATEMENTS})
 IMPORTS = ["Solution", "SolutionDefs"] + [m for m in stmt_modules if m != "Solution"]
 

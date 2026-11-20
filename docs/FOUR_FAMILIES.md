@@ -41,7 +41,7 @@ The parameters are those of the manuscript:
 
 Here `𝒫_k` (`twP k`) is `B_k` for `k ≥ 1` (`twistPoly k`), `1` for `k = 0` and `C_(-k)` for `k < 0` (`twistPolyNeg`). For the positive clasp the manuscript transports the bound by `M ↦ M⁻¹`; the Lean statement reverses it in `L`. The two forms differ by a unit `±M^j` of `ℚ(M)[L, L⁻¹]`, because every eigenvalue set is invariant under `(M, L) ↦ (M⁻¹, L⁻¹)` (`eigenvalueSet_symm`). The last clause of the theorem says that for `ℓ = 0`, the negative clasp and the companion `T(r, s)` the knot and the bound are those of `theoremT`; that instance of the theorem is the first clause of `theoremT` verbatim (`pairTClauses_of_twFamilyClauses`).
 
-As in v1, the classical clause is the inclusion of the boundary eigenvalues in the bound together with coprimality; it does not determine the A-polynomial. The exact recurrence polynomial is not determined either: what is proved is that the factor divides the classical limit of every recurrence polynomial.
+As in v1, the classical clause is the inclusion of the boundary eigenvalues in the bound together with coprimality; it does not determine the A-polynomial. The exact recurrence polynomial is not determined either: what is proved is that the factor divides the classical limit of every recurrence polynomial. Both sides are sharpened in [`FURTHER_CLAIMS.md`](FURTHER_CLAIMS.md): the whole symbol `(L - 1)·E·𝒫_a` divides the classical limit for every twist, and the A-polynomial is the companion-abelian factor `(L - 1)·𝒫_(-ℓ)` or the full bound.
 
 ## 2. The knots
 
@@ -109,7 +109,7 @@ The theorem makes no claim that the knots are pairwise distinct.
 
 ## 6. What was checked
 
-Present version (2026-11-20), in the folder `lean` (the record of the checks on the uploaded tree is [`reports/local-checks-2026-11-20.md`](../reports/local-checks-2026-11-20.md)):
+At the first upload (2026-11-20, 49 statements in the challenge), in the folder `lean`; the record is [`reports/local-checks-2026-11-20.md`](../reports/local-checks-2026-11-20.md). The counts of the present version, with the further claims of the paper, are in [`FURTHER_CLAIMS.md`](FURTHER_CLAIMS.md), Section 4.
 
 | Check | Result |
 |---|---|
