@@ -2,7 +2,7 @@
 
 `lake comparator` (part of Lake since Lean 4.35; `lake comparator --help`) judges a solution against a challenge. For each theorem named in the configuration it establishes that the solution proves the same statement as the challenge from identical declarations, that the proof uses no axiom outside the permitted list, and that Lean's kernel and every additional kernel named in the configuration accept it. It builds and exports both sides inside a `bwrap` sandbox.
 
-**State.** The comparator has not been run on this version. Everything below prepares that run. The local checks that were made instead are in [`reports/local-checks-2026-11-20b.md`](reports/local-checks-2026-11-20b.md); they do not replace it.
+**State.** The comparator accepted commit `da0776d` (tree of `lean/` `2ad5a66`) on 21 November 2026, following the steps below: all 60 theorems, Lean's kernel and `nanoda` ([report](reports/comparator-2026-11-21.md)). A later commit that changes `lean/` needs a new run. The local checks of the same tree are in [`reports/local-checks-2026-11-20b.md`](reports/local-checks-2026-11-20b.md).
 
 ## What is judged
 
